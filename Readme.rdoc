@@ -1,0 +1,19 @@
+= {Adauth}[http://adauth.arcath.net/]
+
+Easy to use Active Directory Authentication for Rails.
+
+== Install
+
+Not yet...
+
+== Usage
+
+Create an initializer in _config/initilaizers_ called adauth.rb and place this code in it:
+
+    Adauth.configure do |c|
+        c.domain = "example.com" #The domain name used on your network e.g. example.com or example.local
+        c.server = "127.0.0.1" #The IP of any DC on your network
+        c.base = "dc=example, dc=com" #
+    end
+
+More soon...
