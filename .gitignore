@@ -1,0 +1,5 @@
+.DS_STORE
+pkg/*
+tmp/*
+*~
+spec/test_data.yml

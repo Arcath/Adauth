@@ -1,0 +1,26 @@
+PATH
+  remote: .
+  specs:
+    adauth (0.0.1pre)
+      ruby-net-ldap
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    diff-lcs (1.1.2)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.1)
+    rspec-expectations (2.6.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.6.0)
+    ruby-net-ldap (0.0.4)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  adauth!
+  rspec
