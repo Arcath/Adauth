@@ -45,6 +45,21 @@ describe Adauth, "#authenticate" do
     it "should return nil for a failed bind" do
         Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["group"]).should == nil
     end
+    
+    it "should return nil for a failed bind whilst using allowed groups" do
+       Adauth.config.allowed_groups = @yaml["domain"]["pass_allowed_groups"]
+       Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["group"]).should be_nil
+    end
+    
+    it "should allow users who are in an allowed group" do
+       Adauth.config.allowed_groups = @yaml["domain"]["pass_allowed_groups"]
+       Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_a Adauth::User
+    end
+    
+    it "should dis-allow users who are not in an allowed group" do
+       Adauth.config.allowed_groups = @yaml["domain"]["fail_allowed_groups"]
+       Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_nil
+    end
 end
 
 describe Adauth::User do
