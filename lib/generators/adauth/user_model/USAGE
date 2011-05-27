@@ -1,0 +1,14 @@
+Description:
+  Default for MODEL_NAME is user
+  Default for MIGRATION_NAME is "create_(plural of MODEL_NAME)"
+  Creates a model for storing Adauth users which inherits from Adauth::UserModel
+
+Example:
+  adauth:user_model
+    Will result in app/model/user.rb and a migration called create_users
+
+  adauth:user_model employee
+    Will result in app/model/employee.rb and a migration called create_employees
+
+  adauth:user_model employee add_adauth_to_employees
+    Will result in app/model/employee.rb and a migration called add_adauth_to_employees

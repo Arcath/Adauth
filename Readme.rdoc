@@ -4,7 +4,11 @@ Easy to use Active Directory Authentication for Rails.
 
 == Install
 
-Awaiting Gem Release.
+Add the Adauth gem to your Gemfile:
+
+    gem 'adauth'
+
+and run a bundle install
 
 == Usage
 
@@ -16,11 +20,19 @@ Create an initializer in _config/initilaizers_ called adauth.rb and place this c
         c.base = "dc=example, dc=com" #the base for your users.
     end
 
-c.port can also be used but defaults to 389 which is the default for AD/LDAP.
+c.port can also be used but defaults to 389 which is the default for AD/LDAP. For a full list of options see {Configuration}[...] on the wiki.
+
+Thats enough to very basically run Adauth, and if you prefer complete control over how your authentication is handled you can use this method:
+
+    Adauth.authenticate(username, password)
+
+Which has 2 possible return values nil if the users details are wrong or an instance of Adauth::User if the details are correct.
+
+Adauth provides generators and helper methods for getting your application up and running.
 
 == Developing
 
-Obviously to test the AD functionality Adauth requires a working domain and a user to try loging in with. If you try running the tests without first creating the test_data.yml file then they will fail with this error:
+Obviously to test the AD functionality Adauth requires a working domain and a user to try logging in with. If you try running the tests without first creating the test_data.yml file then they will fail with this error:
 
     Failure/Error: @yaml = YAML::load(File.open('spec/test_data.yml'))
 
@@ -31,13 +43,19 @@ You need to create a yaml file that looks like this:
       server: 127.0.0.1
       port: 389
       base: "dc=example, dc=com"
+      pass_allowed_groups:
+        - group
+      fail_allowed_groups:
+        - no_group
 
     user:
       login: username
       password: password
       group: group
 
-The domain portion of this file is pretty self explanitory, they are the same as the code above for creating a domain connection. ALL options need to be set here.
+The domain portion of this file is pretty self explanatory, they are the same as the code above for creating a domain connection. ALL options need to be set here.
+
+The pass and fail allowed groups need to be an array with pass containing a group that the test user is a member of and fail containing a group that the test user isn't a member of. (The fail group doesn't have to exist)
 
 The user is a user capable of logging into the domain, you can use your account here or any account on the domain. The group attribute needs to be set to a group that you are a member of so that the tests can make sure that the correct groups are picked up from AD.
 

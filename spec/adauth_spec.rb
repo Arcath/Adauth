@@ -85,4 +85,8 @@ describe Adauth::User do
     it "should return false for a member_of test using the users password" do
         @user.member_of?(@yaml["user"]["password"]).should == false
     end
+    
+    it "should have the correct user" do
+        @user.login.should == @yaml["user"]["login"]
+    end
 end
