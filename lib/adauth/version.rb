@@ -1,3 +1,3 @@
 module Adauth
-    Version = "0.0.1pre"
+    Version = "0.1.0"
 end
