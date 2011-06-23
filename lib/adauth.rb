@@ -16,7 +16,7 @@ module Adauth
     end
     
     def self.configure
-       @config = Config.new
+       @config ||= Config.new
        yield(@config) 
     end
     
