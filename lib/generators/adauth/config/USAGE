@@ -1,0 +1,5 @@
+Description:
+  Creates a config file for Adauth with sample data and details comments
+
+Example:
+  rails g adauth:config
