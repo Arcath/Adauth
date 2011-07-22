@@ -32,4 +32,11 @@ Adauth.configure do |c|
 	# 
 	# Takes an array for group names
 	#c.allowed_groups = ["Group1", "Group2"]
+	
+	# Windows Security groups to deny
+	#
+	# Only allow users who aren't in these groups to login
+	#
+	# Takes an array for group names
+	#c.denied_groups = ["Group1", "Group2"]
 end
