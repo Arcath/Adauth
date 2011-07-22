@@ -7,7 +7,7 @@ module Adauth
             
             def generate_user_model
                 template "model.rb.erb", "app/models/#{file_name}.rb"
-                template "migration.rb.erb", "db/migrate/#{Time.now.utc.strftime("%Y%m%d%H%M%S")}_#{migration_name_for_array}.rb"
+                generate "migration", "#{migration_name_for_array}", "login:string", "group_strings:string", "name:string"
             end
             
             private

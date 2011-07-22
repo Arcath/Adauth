@@ -60,6 +60,16 @@ describe Adauth, "#authenticate" do
        Adauth.config.allowed_groups = @yaml["domain"]["fail_allowed_groups"]
        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_nil
     end
+    
+    it "should dis-allow users who are in a denied group" do
+        Adauth.config.denied_groups = @yaml["domain"]["pass_allowed_groups"]
+        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_nil
+    end
+    
+    it "should dis-allow users who are in a denied group" do
+        Adauth.config.denied_groups = @yaml["domain"]["fail_allowed_groups"]
+        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_a Adauth::User
+    end
 end
 
 describe Adauth::User do
