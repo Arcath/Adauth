@@ -12,15 +12,11 @@ and run a bundle install
 
 == Usage
 
-Create an initializer in _config/initilaizers_ called adauth.rb and place this code in it:
+Adauth requires a config file which can be created by running the command
 
-    Adauth.configure do |c|
-        c.domain = "example.com" #The domain name used on your network e.g. example.com or example.local
-        c.server = "127.0.0.1" #The IP of any DC on your network
-        c.base = "dc=example, dc=com" #the base for your users.
-    end
+     rails g adauth:config
 
-c.port can also be used but defaults to 389 which is the default for AD/LDAP. For a full list of options see {Configuration}[...] on the wiki.
+This creates a config file for _example.com_ with all the values present along with helpful comments for getting Adauth up and running.
 
 Thats enough to very basically run Adauth, and if you prefer complete control over how your authentication is handled you can use this method:
 
@@ -28,7 +24,7 @@ Thats enough to very basically run Adauth, and if you prefer complete control ov
 
 Which has 2 possible return values nil if the users details are wrong or an instance of Adauth::User if the details are correct.
 
-Adauth provides generators and helper methods for getting your application up and running.
+Adauth provides a lot of additional functionality which can be used to get your authentication up and running quickly. See the {wiki}[https://github.com/Arcath/Adauth/wiki] for more information.
 
 == Developing
 

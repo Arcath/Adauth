@@ -1,5 +1,11 @@
 module Adauth
+    
+    # The class which links to Active Directory, based on http://metautonomo.us/2008/04/04/simplified-active-directory-authentication/
+    #
+    # Do no call Adauth::User.new, use Adauth::User.authenticate instead. For all of Adauth additional filtering use Adauth.authenticate.
     class User
+        
+        # Single vales where the method maps directly to one Active Directory attribute
         ATTR_SV = {
               :login => :samaccountname,
               :first_name => :givenname,
@@ -7,12 +13,19 @@ module Adauth
               :email => :mail,
               :name => :name
         }
-            
+        
+        # Multi values were the method needs to return an array for values.
         ATTR_MV = {
               :groups => [ :memberof,
                            Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ]
         }
 
+        # Authenticates a user against Active Directory and returns an instance of self
+        #
+        # Called as:
+        #    Adauth::User.authenticate("username", "password")
+        #
+        # Usage would by-pass Adauths group filtering.
         def self.authenticate(login, pass)
             return nil if login.empty? or pass.empty?
             conn = Net::LDAP.new    :host => Adauth.config.server,
@@ -30,10 +43,14 @@ module Adauth
             return nil
         end
 
+        # Returns the full name of the user
+        #
+        # Combines the first_name and last_name attributes to create full_name
         def full_name
             self.first_name + ' ' + self.last_name
         end
 
+        # Returns true if the user is a member of the passed group.
         def member_of?(group)
             self.groups.include?(group)
         end
