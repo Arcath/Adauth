@@ -83,7 +83,7 @@ module Adauth
         end
 
         def self.generate_multi_value_readers
-            ATTR_MV.each_pair do |k, v|
+            ATTR_MV.merge(Adauth.config.ad_mv_attrs).each_pair do |k, v|
                 val, block = Array(v)
                 define_method(k) do
                     if @entry.attribute_names.include?(val)

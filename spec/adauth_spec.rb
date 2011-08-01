@@ -109,12 +109,18 @@ describe "Adauth::User custom returns" do
             c.server = @yaml["domain"]["server"]
             c.port = @yaml["domain"]["port"]
             c.base = @yaml["domain"]["base"]
-            c.ad_sv_attrs = {:email => :mail}
+            c.ad_sv_attrs = { :phone => :telephonenumber }
+            c.ad_mv_attrs = { :ous => [ :memberof,
+                                            Proc.new {|g| g.sub(/.*?OU=(.*?),.*/, '\1')} ] }
         end    
         @user = Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"])
     end
     
-    it "should pickup the custom value from AD" do
-        @user.email.should eq(@yaml["user"]["email"])
+    it "should pickup the custom single value from AD" do
+        @user.phone.should be_a String
+    end
+    
+    it "should pickup the custom multi value from AD" do
+        @user.ous.should be_a Array
     end
 end

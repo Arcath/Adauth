@@ -39,4 +39,19 @@ Adauth.configure do |c|
 	#
 	# Takes an array for group names
 	#c.denied_groups = ["Group1", "Group2"]
+	
+	# Additional single attributes to fetch
+	#
+	# Single Values to fetch from Active Directory for example phone number
+	#
+	# Takes a hash in the form { :method_on_Adauth::User => :field_in_ad }
+	#c.ad_sv_attrs = { :phone => :telephonenumber }
+	
+	# Additional multi attributes to fetch
+	#
+	# Multiple Values to fetch from Active Directory
+	#
+	# Takes a hash in the form { :method_on_Adauth::User => [ :field_in_ad, Proc.new { |g| operations_to_turn_field_into_array } ] }
+	# Example os for groups (already provided)
+	#c.ad_mv_attrs(:groups => [ :memberof, Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ])
 end
