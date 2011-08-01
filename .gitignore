@@ -5,3 +5,5 @@ tmp/*
 spec/test_data.yml
 doc/*
 .yardoc/*
+
+.rvmrc

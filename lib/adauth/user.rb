@@ -66,7 +66,7 @@ module Adauth
         end
 
         def self.generate_single_value_readers
-            ATTR_SV.each_pair do |k, v|
+            ATTR_SV.merge(Adauth.config.ad_sv_attrs).each_pair do |k, v|
                 val, block = Array(v)
                 define_method(k) do
                     if @entry.attribute_names.include?(val)

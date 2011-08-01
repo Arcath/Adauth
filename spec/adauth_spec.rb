@@ -100,3 +100,21 @@ describe Adauth::User do
         @user.login.should == @yaml["user"]["login"]
     end
 end
+
+describe "Adauth::User custom returns" do
+    before :each do
+        @yaml = YAML::load(File.open('spec/test_data.yml'))
+        Adauth.configure do |c|
+            c.domain = @yaml["domain"]["domain"]
+            c.server = @yaml["domain"]["server"]
+            c.port = @yaml["domain"]["port"]
+            c.base = @yaml["domain"]["base"]
+            c.ad_sv_attrs = {:email => :mail}
+        end    
+        @user = Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"])
+    end
+    
+    it "should pickup the custom value from AD" do
+        @user.email.should eq(@yaml["user"]["email"])
+    end
+end
