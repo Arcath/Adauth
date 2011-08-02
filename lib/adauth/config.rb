@@ -16,5 +16,20 @@ module Adauth
            @allowed_ous = []
            @denied_ous = []
         end
+        
+        def domain=(s)
+            @domain = s
+            work_out_base(s)
+        end
+        
+        private
+        
+        def work_out_base(s)
+            dcs = []
+            s.split(/\./).each do |split|
+                dcs.push("dc=#{split}")
+            end
+            @base ||= dcs.join(', ')
+        end
     end
 end

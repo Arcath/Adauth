@@ -4,8 +4,12 @@ require 'yaml'
 describe Adauth, "#configure" do
     it "should accept a block" do
         Adauth.configure do |c|
-            c.domain = "example.com"
+            c.domain = "test.example.com"
         end
+    end
+    
+    it "should correctly calculate the base" do
+        Adauth.config.base.should eq("dc=test, dc=example, dc=com")
     end
 end
 
