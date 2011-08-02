@@ -36,7 +36,7 @@ module Adauth
                                     :auth => { :username => "#{login}@#{Adauth.config.domain}",
                                         :password => pass,
                                         :method => :simple }
-            if conn.bind and user = conn.search(:filter => "sAMAccountName=#{login}").first
+            if conn.bind and user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
                 return self.new(user)
             else
                 return nil
