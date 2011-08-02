@@ -15,7 +15,7 @@ module Adauth
             # Has 2 optional parameters, model_name which defaults to "user" and migration_name which defaults to "create_users"
             def generate_user_model
                 template "model.rb.erb", "app/models/#{file_name}.rb"
-                generate "migration", "#{migration_name_for_array}", "login:string", "group_strings:string", "name:string"
+                generate "migration", "#{migration_name_for_array}", "login:string", "group_strings:string", "name:string", "ou_strings:string"
             end
             
             private

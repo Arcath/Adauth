@@ -23,6 +23,12 @@ module Adauth
         elsif @config.denied_groups != []
             user = Adauth::User.authenticate(login, pass)
             (user && @config.denied_groups == (@config.denied_groups - user.groups)) ? user : nil
+        elsif @config.allowed_ous != []
+            user = Adauth::User.authenticate(login, pass)
+            (user && @config.allowed_ous != (@config.allowed_ous - user.ous)) ? user : nil
+        elsif @config.denied_ous != []
+            user = Adauth::User.authenticate(login, pass)
+            (user && @config.denied_ous == (@config.denied_ous - user.ous)) ? user : nil
         else
             Adauth::User.authenticate(login, pass)
         end

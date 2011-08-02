@@ -17,7 +17,9 @@ module Adauth
         # Multi values were the method needs to return an array for values.
         ATTR_MV = {
               :groups => [ :memberof,
-                           Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ]
+                           Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ],
+              :ous => [ :memberof,
+                           Proc.new {|g| g.sub(/.*?OU=(.*?),.*/, '\1')} ]
         }
 
         # Authenticates a user against Active Directory and returns an instance of self

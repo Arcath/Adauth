@@ -18,6 +18,16 @@ module Adauth
     	   group_strings.split(", ") 
 	    end
 	    
+	    # Returns an array of groups for the user
+        #
+        # Called as:
+        #    UserInstance.ous
+        #
+        # The array is generated from the group_strings attribute which is set by the adauth update and create methods. This array will match the orginizational units the user is a member of.
+	    def ous
+	        ou_strings.split(", ")
+        end
+	    
 	    # Update the user record using an instance of Adauth::User
 	    #
 	    # Called as:
@@ -57,6 +67,7 @@ module Adauth
         		create! do |user|
         			user.login = adauth_user.login
         			user.group_strings = adauth_user.groups.join(", ")
+        			user.ou_strings = adauth_user.ous.join(", ")
         			user.name = adauth_user.name
         		end
         	end 
