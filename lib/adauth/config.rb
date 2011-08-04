@@ -20,6 +20,7 @@ module Adauth
         def domain=(s)
             @domain = s
             work_out_base(s)
+            @server ||= s
         end
         
         private

@@ -11,6 +11,10 @@ describe Adauth, "#configure" do
     it "should correctly calculate the base" do
         Adauth.config.base.should eq("dc=test, dc=example, dc=com")
     end
+    
+    it "should set the server to the domain if not specified" do
+        Adauth.config.server.should eq("test.example.com")
+    end
 end
 
 describe Adauth, "#config" do
