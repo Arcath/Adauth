@@ -43,11 +43,17 @@ You need to create a yaml file that looks like this:
         - group
       fail_allowed_groups:
         - no_group
+      pass_allowed_ous:
+        - ou
+      fail_allowed_ous:
+        - no_ou
 
     user:
       login: username
       password: password
       group: group
+      ou: ou_user_is_in
+      email: email_of_user_in_ad
 
 The domain portion of this file is pretty self explanatory, they are the same as the code above for creating a domain connection. ALL options need to be set here.
 
