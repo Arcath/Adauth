@@ -2,7 +2,8 @@ module Adauth
     
     # Holds all of adauth config in attr_accessor values
     class Config
-        attr_accessor :domain, :port, :base, :server, :allowed_groups, :denied_groups, :ad_sv_attrs, :ad_mv_attrs, :allowed_ous, :denied_ous
+        attr_accessor   :domain, :port, :base, :server, :allowed_groups, :denied_groups, :ad_sv_attrs, :ad_mv_attrs, :allowed_ous, :denied_ous,
+                        :admin_user, :admin_password, :ad_sv_group_attrs, :ad_mv_group_attrs
         
         # Creates a new instance of Adauth::Config
         #
@@ -15,6 +16,8 @@ module Adauth
            @ad_mv_attrs = {}
            @allowed_ous = []
            @denied_ous = []
+           @ad_sv_group_attrs = {}
+           @ad_mv_group_attrs = {}
         end
         
         def domain=(s)

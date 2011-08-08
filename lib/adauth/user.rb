@@ -40,6 +40,13 @@ module Adauth
             return nil
         end
 
+        def self.create_from_group(login)
+            conn = Adauth::AdminConnection.bind
+            user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
+            obj = self.new(user)
+            return obj
+        end
+
         # Returns the full name of the user
         #
         # Combines the first_name and last_name attributes to create full_name
