@@ -30,13 +30,8 @@ module Adauth
         # Usage would by-pass Adauths group filtering.
         def self.authenticate(login, pass)
             return nil if login.empty? or pass.empty?
-            conn = Net::LDAP.new    :host => Adauth.config.server,
-                                    :port => Adauth.config.port,
-                                    :base => Adauth.config.base,
-                                    :auth => { :username => "#{login}@#{Adauth.config.domain}",
-                                        :password => pass,
-                                        :method => :simple }
-            if conn.bind and user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
+            conn = Adauth::Connection.bind(login, pass)
+            if conn and user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
                 return self.new(user)
             else
                 return nil

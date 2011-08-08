@@ -3,6 +3,9 @@ require 'adauth/version'
 require 'adauth/user'
 require 'adauth/config'
 require 'adauth/helpers'
+require 'adauth/connection'
+require 'adauth/group'
+require 'adauth/admin_connection'
 require 'adauth/user_model' if defined? ActiveRecord
 
 # The top level module
