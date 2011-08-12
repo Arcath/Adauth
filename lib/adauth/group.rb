@@ -4,10 +4,14 @@ module Adauth
     class Group
         
         ATTR_SV = {
-            :name => :name
+            :name => :name,
+            :dn => :distinguishedname
         }
         
-        ATTR_MV = {}
+        ATTR_MV = {
+            :ous => [ :distinguishedname,
+                           Proc.new {|g| g.sub(/.*?OU=(.*?),.*/, '\1')} ]
+        }
         
         def self.find(name)
             @conn = Adauth::AdminConnection.bind
@@ -19,12 +23,12 @@ module Adauth
         end
         
         def members
-            #(objectCategory=user)(memberOf=CN=QA Users,OU=Help Desk,DC=dpetri,DC=net) 
-            members_ldap = @conn.search(:filter => Net::LDAP::Filter.eq('objectCategory', 'user'))
+            filters = Net::LDAP::Filter.construct("(memberOf=#{dn})")
+            members_ldap = @conn.search(:filter => filters)
             members = []
             members_ldap.each do |member|
-                user = Adauth::User.create_from_group(member.samaccountname.first)
-                members.push(user) if user.groups.include?(name)
+                user = Adauth::User.create_from_login(member.samaccountname.first)
+                members.push(user)
             end
             return members
         end

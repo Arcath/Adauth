@@ -27,6 +27,7 @@ describe Adauth::Group do
     it "should return an array from group.members" do
         group = Adauth::Group.find(@yaml["user"]["group"])
         group.members.should be_a Array
+        group.members.count.should_not eq(0)
     end
     
     it "should return an array of adauth::users from group.members" do
@@ -40,7 +41,11 @@ describe Adauth::Group do
         group = Adauth::Group.find(@yaml["user"]["group"])
         group.members.each do |member|
             member.groups.include?(@yaml["user"]["group"]).should be_true
-            puts member.full_name
         end
+    end
+    
+    it "should return an array of ous" do
+        group = Adauth::Group.find(@yaml["user"]["group"])
+        group.ous.should be_a Array
     end
 end
