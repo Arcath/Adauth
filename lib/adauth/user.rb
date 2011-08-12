@@ -19,7 +19,7 @@ module Adauth
               :groups => [ :memberof,
                            Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ],
               :ous => [ :memberof,
-                           Proc.new {|g| g.sub(/.*?OU=(.*?),.*/, '\1')} ]
+                           Proc.new {|g| g.scan(/OU=.*?,/).map { |e| e.sub!(/OU=/,'').sub(/,/,'') } } ]
         }
 
         # Authenticates a user against Active Directory and returns an instance of self
@@ -90,7 +90,9 @@ module Adauth
                 define_method(k) do
                     if @entry.attribute_names.include?(val)
                         if block.is_a?(Proc)
-                            return @entry.send(val).collect(&block)
+                            output = @entry.send(val).collect(&block) 
+                            output = output.first if output.first.is_a? Array
+                            return output
                         else
                             return @entry.send(val)
                         end
