@@ -82,6 +82,16 @@ describe Adauth::User do
         @user.groups.should be_a Array
     end
     
+    it "should return ous for an authenticated user" do
+        @user.ous.should be_a Array
+    end
+
+    it "should have all the ous from the data file" do
+        @yaml["user"]["ous"].each do |ou|
+            @user.ous.include?(ou).should be_true
+        end
+    end
+    
     it "should return true for a member_of test using the users group" do
         @user.member_of?(@yaml["user"]["group"]).should == true
     end
