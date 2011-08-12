@@ -64,6 +64,30 @@ describe Adauth, "#authenticate" do
         Adauth.config.denied_ous = @yaml["domain"]["fail_allowed_ous"]
         Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_a Adauth::User
     end
+    
+    it "should dis-allow a user who is in an allowed ou but not an allowed group" do
+        Adauth.config.allowed_ous = @yaml["domain"]["pass_allowed_ous"]
+        Adauth.config.denied_groups = @yaml["domain"]["pass_allowed_groups"]
+        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_nil
+    end
+    
+    it "should dis-allow a user who is in an allowed group but not an allowed ou" do
+        Adauth.config.denied_ous = @yaml["domain"]["pass_allowed_ous"]
+        Adauth.config.allowed_groups = @yaml["domain"]["pass_allowed_groups"]
+        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_nil
+    end
+    
+    it "should allow a user who is in an allowed ou and an allowed group" do
+        Adauth.config.allowed_ous = @yaml["domain"]["pass_allowed_ous"]
+        Adauth.config.allowed_groups = @yaml["domain"]["pass_allowed_groups"]
+        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_a Adauth::User
+    end
+    
+    it "should dis-allow a user who is in a dis-allowed ou and a dis-allowed group" do
+        Adauth.config.denied_ous = @yaml["domain"]["pass_allowed_ous"]
+        Adauth.config.denied_groups = @yaml["domain"]["pass_allowed_groups"]
+        Adauth.authenticate(@yaml["user"]["login"], @yaml["user"]["password"]).should be_nil
+    end
 end
 
 describe Adauth::User do
