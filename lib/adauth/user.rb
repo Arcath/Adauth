@@ -40,7 +40,7 @@ module Adauth
             return nil
         end
 
-        def self.create_from_group(login)
+        def self.create_from_login(login)
             conn = Adauth::AdminConnection.bind
             user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
             obj = self.new(user)
