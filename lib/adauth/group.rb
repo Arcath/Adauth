@@ -1,18 +1,31 @@
 module Adauth
     
     # Active Directory Group object
+    #
+    # Called as:
+    #    Adauth::Group.find(name)
+    #
+    # Returns an instance of Adauth::Group for the group specified in the find method
     class Group
         
+        # Single vales where the method maps directly to one Active Directory attribute
         ATTR_SV = {
             :name => :name,
             :dn => :distinguishedname
         }
         
+        # Multi values were the method needs to return an array for values.
         ATTR_MV = {
             :ous => [ :distinguishedname,
                            Proc.new {|g| g.sub(/.*?OU=(.*?),.*/, '\1')} ]
         }
         
+        # Finds the group specified
+        #
+        # Called as:
+        #    Adauth::Group.find(name)
+        #
+        # Returns an instance of Adauth::Group for the group specified in the find method
         def self.find(name)
             @conn = Adauth::AdminConnection.bind
             if group = @conn.search(:filter => Net::LDAP::Filter.eq('name', name)).first
@@ -22,6 +35,12 @@ module Adauth
             end
         end
         
+        # Returns the members of the group
+        #
+        # Called as:
+        #    Adauth::Group.members
+        #
+        # Returns an array of Adauth::Users for the group
         def members
             filters = Net::LDAP::Filter.construct("(memberOf=#{dn})")
             members_ldap = @conn.search(:filter => filters)

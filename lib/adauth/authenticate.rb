@@ -13,6 +13,12 @@ module Adauth
         end
     end
     
+    # Checks weather an users groups are allowed to login
+    #
+    # Called as:
+    #    Adauth.allowed_group_login(Adauth::User)
+    #
+    # Returns true if the user can login and false if the user cant
     def self.allowed_group_login(user)
         if @config.allowed_groups != []
             allowed = (user && @config.allowed_groups != (@config.allowed_groups - user.groups)) ? user : nil
@@ -29,6 +35,12 @@ module Adauth
         allowed == denied
     end
     
+    # Checks weather an users ous are allowed to login
+    #
+    # Called as:
+    #    Adauth.allowed_ou_login(Adauth::User)
+    #
+    # Returns true if the user can login and false if the user cant
     def self.allowed_ou_login(user)
         if @config.allowed_ous != []
             allowed = (user && @config.allowed_ous != (@config.allowed_ous - user.ous)) ? user : nil

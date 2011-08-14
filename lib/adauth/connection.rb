@@ -1,5 +1,19 @@
 module Adauth
+    
+    # Create a connection to LDAP using Net::LDAP
+    #
+    # Called as:
+    #    Adauth::Connection.bind(username, password)
+    #
+    # 
     class Connection
+        
+        # Create a connection to LDAP using Net::LDAP
+        #
+        # Called as:
+        #    Adauth::Connection.bind(username, password)
+        #
+        #
         def self.bind(login, pass)
             conn = Net::LDAP.new    :host => Adauth.config.server,
                                     :port => Adauth.config.port,

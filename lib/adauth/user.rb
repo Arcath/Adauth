@@ -40,6 +40,12 @@ module Adauth
             return nil
         end
 
+        # Create a Adauth::User object from AD using just the username
+        #
+        # Called as:
+        #    Adauth::User.create_from_login(login)
+        #
+        # Allows you to create objects for users without using thier password.
         def self.create_from_login(login)
             conn = Adauth::AdminConnection.bind
             user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first

@@ -20,6 +20,12 @@ module Adauth
            @ad_mv_group_attrs = {}
         end
         
+        # Sets domain valiable
+        #
+        # Called as:
+        #    Adauth::Config.domain=(s)
+        #
+        # Calculates both base string and server
         def domain=(s)
             @domain = s
             work_out_base(s)
