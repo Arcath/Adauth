@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
     s.summary = "Provides Active Directory authentication for Rails"
     
     s.add_development_dependency "rspec"
+    s.add_development_dependency "activerecord"
     s.add_dependency "net-ldap"
     
     s.files         = `git ls-files`.split("\n")

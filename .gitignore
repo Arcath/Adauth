@@ -7,3 +7,5 @@ doc/*
 .yardoc/*
 
 .rvmrc
+
+spec/test.sqlite3
