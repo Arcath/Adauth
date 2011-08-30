@@ -35,11 +35,7 @@ module Adauth
         private
         
         def work_out_base(s)
-            dcs = []
-            s.split(/\./).each do |split|
-                dcs.push("dc=#{split}")
-            end
-            @base ||= dcs.join(', ')
+            @base ||= s.gsub(/\./,', dc=').gsub(/^/,"dc=")
         end
     end
 end
