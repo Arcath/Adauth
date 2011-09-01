@@ -14,7 +14,7 @@ module Adauth
               :name => :name
         }
         
-        # Multi values were the method needs to return an array for values.
+        # Multi values where the method needs to return an array for values.
         ATTR_MV = {
               :groups => [ :memberof,
                            Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ],
@@ -30,19 +30,27 @@ module Adauth
         # Usage would by-pass Adauths group filtering.
         def self.authenticate(login, pass)
             return nil if login.empty? or pass.empty?
-            conn = Net::LDAP.new    :host => Adauth.config.server,
-                                    :port => Adauth.config.port,
-                                    :base => Adauth.config.base,
-                                    :auth => { :username => "#{login}@#{Adauth.config.domain}",
-                                        :password => pass,
-                                        :method => :simple }
-            if conn.bind and user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
+            conn = Adauth::Connection.bind(login, pass)
+            if conn and user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
                 return self.new(user)
             else
                 return nil
             end
         rescue Net::LDAP::LdapError => e
             return nil
+        end
+
+        # Create a Adauth::User object from AD using just the username
+        #
+        # Called as:
+        #    Adauth::User.create_from_login(login)
+        #
+        # Allows you to create objects for users without using thier password.
+        def self.create_from_login(login)
+            conn = Adauth::AdminConnection.bind
+            user = conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
+            obj = self.new(user)
+            return obj
         end
 
         # Returns the full name of the user
