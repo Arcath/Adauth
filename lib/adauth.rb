@@ -7,7 +7,7 @@ require 'adauth/connection'
 require 'adauth/group'
 require 'adauth/admin_connection'
 require 'adauth/authenticate'
-require 'adauth/user_model' if defined? ActiveRecord
+require 'adauth/user_model'
 
 # The top level module
 #
