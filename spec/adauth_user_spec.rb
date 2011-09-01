@@ -175,3 +175,25 @@ describe Adauth::AdminConnection do
         lambda { Adauth::AdminConnection.bind }.should raise_error
     end
 end
+
+describe Adauth, "passwordless_login" do
+    before :each do
+        @yaml = YAML::load(File.open('spec/test_data.yml'))
+        Adauth.configure do |c|
+            c.domain = @yaml["domain"]["domain"]
+            c.server = @yaml["domain"]["server"]
+            c.port = @yaml["domain"]["port"]
+            c.base = @yaml["domain"]["base"]
+            c.admin_user = @yaml["domain"]["admin_user"]
+            c.admin_password = @yaml["domain"]["admin_password"]
+        end
+    end
+    
+    it "should return an user when asked to" do
+       Adauth.passwordless_login(@yaml["user"]["login"]).should be_a Adauth::User
+    end
+    
+    it "should be a viable user when passwordless login is used" do
+        Adauth.passwordless_login(@yaml["user"]["login"]).login.should eq(@yaml["user"]["login"])
+    end
+end

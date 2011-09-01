@@ -13,6 +13,21 @@ module Adauth
         end
     end
     
+    # Takes a username as an input and returns and instance of `Adauth::User`
+    # 
+    # Called as
+    #    Adauth.authentication("Username")
+    #
+    # Will return `nil` if the username is worng, if the admin details are not set an error will be raised.
+    def self.passwordless_login(login)
+        @conn = Adauth::AdminConnection.bind
+        if user = @conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
+            return Adauth::User.new(user)
+        else
+            return nil
+        end
+    end
+    
     # Checks weather an users groups are allowed to login
     #
     # Called as:

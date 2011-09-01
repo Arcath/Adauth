@@ -14,7 +14,7 @@ module Adauth
               :name => :name
         }
         
-        # Multi values were the method needs to return an array for values.
+        # Multi values where the method needs to return an array for values.
         ATTR_MV = {
               :groups => [ :memberof,
                            Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ],
