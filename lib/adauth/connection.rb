@@ -21,10 +21,16 @@ module Adauth
                                     :auth => { :username => "#{login}@#{Adauth.config.domain}",
                                         :password => pass,
                                         :method => :simple }
-            if conn.bind
-                return conn
-            else
-                return nil
+            begin
+                Timeout::timeout(10){
+                    if conn.bind
+                        return conn
+                    else
+                        return nil
+                    end
+                }
+            rescue Timeout::Error
+                raise "Unable to connect to LDAP Server"
             end
         end
     end

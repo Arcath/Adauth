@@ -196,4 +196,18 @@ describe Adauth, "passwordless_login" do
     it "should be a viable user when passwordless login is used" do
         Adauth.passwordless_login(@yaml["user"]["login"]).login.should eq(@yaml["user"]["login"])
     end
+    
+    it "should raise an exception on timeout" do
+        Adauth.configure do |c|
+            c.domain = @yaml["domain"]["domain"]
+            c.server = "127.0.0.2"
+            c.port = @yaml["domain"]["port"]
+            c.base = @yaml["domain"]["base"]
+            c.admin_user = @yaml["domain"]["admin_user"]
+            c.admin_password = @yaml["domain"]["admin_password"]
+        end
+        
+        lambda { Adauth::AdminConnection.bind }.should raise_error
+        
+    end
 end

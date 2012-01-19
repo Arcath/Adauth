@@ -1,4 +1,5 @@
 require 'net/ldap'
+require 'timeout'
 require 'adauth/version'
 require 'adauth/user'
 require 'adauth/config'
