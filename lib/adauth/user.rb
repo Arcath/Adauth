@@ -81,7 +81,7 @@ module Adauth
                 define_method(k) do
                     if @entry.attribute_names.include?(val)
                         if block.is_a?(Proc)
-                            return block[@entry.send(val).to_s]
+                            return block[@entry.send(val)]
                         else
                             return @entry.send(val).to_s
                         end
