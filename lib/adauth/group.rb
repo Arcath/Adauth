@@ -42,7 +42,7 @@ module Adauth
         #
         # Returns an array of Adauth::Users for the group
         def members
-            filters = Net::LDAP::Filter.construct("(memberOf=#{dn})")
+            filters = Net::LDAP::Filter.eq("memberof","CN=#{name},#{dn}")
             members_ldap = @conn.search(:filter => filters)
             members = []
             members_ldap.each do |member|
