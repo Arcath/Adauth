@@ -68,7 +68,7 @@ module Adauth
         			user.login = adauth_user.login.gsub(/\"|\[|\]/, "")
         			user.group_strings = adauth_user.groups.join(", ")
         			user.ou_strings = adauth_user.ous.join(", ")
-        			user.name = adauth_user.name(/\"|\[|\]/, "")
+        			user.name = adauth_user.name.gsub(/\"|\[|\]/, "")
         		end
         	end 
         end
