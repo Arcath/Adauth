@@ -52,7 +52,7 @@ module Adauth
 	        #
 	        # If the user has no user record in the database one will be created. All the details on the record (new and old) will be updated to the lastest details from the AD server
 	        def return_and_create_with_adauth(adauth_user)
-                user = (find_by_login(adauth_user.login.gsub(/\"|\[|\]/, "") || create_user_with_adauth(adauth_user))
+                user = (find_by_login(adauth_user.login.gsub(/\"|\[|\]/, "")) || create_user_with_adauth(adauth_user))
                 user.update_from_adauth(adauth_user)
                 return user
             end
