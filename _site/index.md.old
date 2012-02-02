@@ -119,8 +119,6 @@ Here's a sample "posts list".
 
 <ul class="posts">
   
-    <li><span>29 Dec 2011</span> &raquo; <a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
-  
 </ul>
 
 ## To-Do

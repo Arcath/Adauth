@@ -12,8 +12,8 @@ pygments: true
 title : Adauth
 tagline: Active Directory Authentication for Ruby/Rails
 author :
-  name : Adam Laycock
-  email : blah@email.test
+  name : Adam "Arcath" Laycock
+  email : gems@arcath.net
   github : Arcath
   twitter : ArcathWhitefall
   feedburner : feedname
@@ -26,7 +26,7 @@ author :
 # Else if you are pushing to username.github.com, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://arcath.github.com/adauth
+production_url : http://adauth.arcath.net
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
