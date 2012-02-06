@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>Home</title>
     
-    <meta name="author" content="Adam Laycock">
+    <meta name="author" content="Adam "Arcath" Laycock">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -57,6 +57,8 @@
     
   
     
+  
+    
     	
     	<li><a href="/pages.html">Pages</a></li>
     	
@@ -83,12 +85,46 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Home <small>Supporting tagline</small></h1>
+  <h1>Home <small></small></h1>
 </div>
 
 <div class="row">
   <div class="span14">
-    
+    <h2 id='about'>About</h2>
+
+<p>Adauth provides Windows Active Directory authentication for Rails. To install it simply add this to your Gemfile</p>
+
+<pre><code>gem &#39;adauth&#39;</code></pre>
+
+<p>Then create <em>config/initializers/adauth.rb</em> and put this in it:</p>
+
+<pre><code>Adauth.configure do |c|
+    c.domain = &quot;example.com&quot;
+	c.server = &quot;dc.example.com&quot;
+	c.base = &quot;dc=example, dc=com&quot;
+end</code></pre>
+
+<p>And thats it!</p>
+
+<p>You can now authenticate users against the domain by calling:</p>
+
+<pre><code>Adauth.authenticate(&quot;Username&quot;, &quot;Password&quot;)</code></pre>
+
+<p>Adauth does have a lot more config available, such as group/ou filtering.</p>
+
+<h2 id='guides'>Guides</h2>
+<ul>
+	<li><a href='install.html'>Install</a></li>
+	<li><a href='configuring.html'>Configuring</a></li>
+</ul>
+<h2 id='news'>News</h2>
+<ul class='posts'>
+  
+    <li><span>06 Feb 2012</span> &raquo; <a href='/Releases/2012/02/06/1-2-1'>1.2.1</a></li>
+  
+    <li><span>03 Feb 2012</span> &raquo; <a href='/General News/2012/02/03/New-Site'>New Site</a></li>
+  
+</ul>
   </div>
 </div>
 
@@ -96,7 +132,7 @@
       </div>
 
       <footer>
-        <p>&copy; Adam Laycock 2012 
+        <p>&copy; Adam "Arcath" Laycock 2012 
           with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
           and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>

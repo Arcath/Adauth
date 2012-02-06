@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Configuring</title>
+    
+    <meta name="author" content="Adam "Arcath" Laycock">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+  </head>
+
+  <body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Adauth</a>
+          <ul class="nav">
+            
+            
+            
+
+
+  
+    
+    	
+    	<li><a href="/archive.html">Archive</a></li>
+    	
+    
+  
+    
+  
+    
+    	
+    	<li><a href="/categories.html">Categories</a></li>
+    	
+    
+  
+    
+  
+    
+  
+    
+  
+    
+    	
+    	<li><a href="/pages.html">Pages</a></li>
+    	
+    
+  
+    
+  
+    
+    	
+    	<li><a href="/tags.html">Tags</a></li>
+    	
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="content">
+        
+<div class="page-header">
+  <h1>Configuring <small>Anything &amp; Everything</small></h1>
+</div>
+
+<div class="row">
+  <div class="span14">
+    <p>Adauth is very easy to configure, all of its config is in <em>config/initializers/adauth.rb</em> and there are only 4 values that need to be set for it to work.</p>
+
+<h1 id='creating_adauthrb'>Creating Adauth.rb</h1>
+
+<p>The easiest way to create adauth.rb is to run <code>rails g adauth:config</code> and have adauth create the file with all the values present and some helpful comments.</p>
+
+<h1 id='important_values'>Important values</h1>
+
+<h2 id='domain'>domain</h2>
+
+<p>This one is pretty self explanatory, it needs to be set to the domain name of your network. For example &#8220;github.com&#8221;, &#8220;arcath.net&#8221; or &#8220;company.local&#8221;, if your unsure what your domain name is contact your network staff.</p>
+
+<h2 id='server'>server</h2>
+
+<p>This needs to be the IP or Hostname of a Domain Controller on your network. For example &#8220;dc1.github.com&#8221;, &#8220;windowsdc.arcath.net&#8221; or &#8220;server.company.local&#8221;, again if you are unsure ask your network staff.</p>
+
+<p>If you have multiple DCs on your network <em>server</em> can be set to your domain as &#8220;company.local&#8221; resolves to a DC on your network. This will only work if your webserver is on the same network as your DCs if your hosting the app externally you will need to set this to a specific DC.</p>
+
+<h2 id='base'>base</h2>
+
+<p>This is the LDAP base for the users you wish to allow access. If you wanted to restrict access to your app to specific OUs on the domain you could do it here. If you want to give access to every user on the domain the base would be</p>
+
+<p>&#8220;dc=github, dc=com&#8221;, &#8220;dc=arcath, dc=net&#8221;, &#8220;dc=company, dc=local&#8221;</p>
+
+<p>If you would rather restrict users based on their group memberships see the allowed groups variable below.</p>
+
+<h2 id='port'>port</h2>
+
+<p>Port isn&#8217;t always necessary as adauth defaults to <em>389</em> which is the default ldap port. Obviosuly if you are accessing ldap from the outside its a lot safer to use a non standard port and you will need to change this.</p>
+
+<h1 id='other_variables'>Other Variables</h1>
+
+<h2 id='allowed_groups'>allowed_groups</h2>
+
+<p>This can be set to an array of group names which <strong>can login to your app</strong>. This allows you to control access through active directory and removes the need for you to do any user administration in app.</p>
+
+<p>For example if you had the groups &#8220;Warehouse Staff&#8221;, &#8220;Finance Staff&#8221; and &#8220;Customer Services&#8221; and you only wanted &#8220;Warehouse Staff&#8221; and &#8220;Finance Staff&#8221; to be able to login then you would set allowed groups to <code>[&quot;Warehouse Staff&quot;, &quot;Finance Staff&quot;]</code> this makes adauth check group memberships if a valid user is found. This means that if someone in the &#8220;IT Support&#8221; group logins in with a valid username and password combo adauth will return the same as if they had got their password wrong.</p>
+
+<h2 id='denied_groups'>denied_groups</h2>
+
+<p>This works in the same way as <strong>allowed_groups</strong> only in reverse, groups listed in this array will fail to login. Like all windows permissions a denied permission comes before an allowed.</p>
+
+<h2 id='allowed_ous_and_denied_ous'>allowed_ous and denied_ous</h2>
+
+<p>These work in exactly the same way as their group based counterparts.</p>
+  </div>
+</div>
+
+
+      </div>
+
+      <footer>
+        <p>&copy; Adam "Arcath" Laycock 2012 
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    
+  </body>
+</html>
+

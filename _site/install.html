@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Archive</title>
+    <title>Install</title>
     
     <meta name="author" content="Adam "Arcath" Laycock">
 
@@ -40,7 +40,7 @@
   
     
     	
-    	<li class="active"><a href="/archive.html" class="active">Archive</a></li>
+    	<li><a href="/archive.html">Archive</a></li>
     	
     
   
@@ -85,52 +85,28 @@
       <div class="content">
         
 <div class="page-header">
-  <h1>Archive <small></small></h1>
+  <h1>Install <small>From Scratch</small></h1>
 </div>
 
 <div class="row">
   <div class="span14">
-    
+    <h2 id='add_the_gem'>Add the Gem</h2>
 
+<p>Step one is to add the gem to your <em>Gemfile</em> like this:</p>
 
+<pre><code>gem &#39;adauth&#39;</code></pre>
 
+<h2 id='run_the_generators'>Run the generators</h2>
 
+<p>Adauth provides quite a few generators to help get you up and running, to run them all:</p>
 
-  
-    
-    
-    
-    
-  
-    
-      <h2>2012</h2>
-      <h3>February</h3>
-      <ul>
-    
-  
-    <li><span>February  6, 2012</span> &raquo; <a href="/Releases/2012/02/06/1-2-1">1.2.1</a></li>
-  
-    
-          
-        
-      
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>February  3, 2012</span> &raquo; <a href="/General News/2012/02/03/New-Site">New Site</a></li>
-  
-    
-      </ul>
-    
-  
+<pre><code>rails g adauth:all</code></pre>
 
+<p>The generators give you instructions on how to do the final steps of the install.</p>
 
+<h2 id='configure_adauth'>Configure Adauth</h2>
+
+<p>The <em>config</em> generator creates a sample config file with every value listed with helpful comments. See <a href='configuring.html'>Configuring</a> for more info.</p>
   </div>
 </div>
 

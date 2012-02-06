@@ -1,9 +1,13 @@
 
-http://arcath.github.com/adauth/archive.html
-http://arcath.github.com/adauth/atom.xml
-http://arcath.github.com/adauth/categories.html
-http://arcath.github.com/adauth/index.html
-http://arcath.github.com/adauth/index.md.old
-http://arcath.github.com/adauth/pages.html
-http://arcath.github.com/adauth/sitemap.txt
-http://arcath.github.com/adauth/tags.html
+http://adauth.arcath.net/archive.html
+http://adauth.arcath.net/atom.xml
+http://adauth.arcath.net/categories.html
+http://adauth.arcath.net/configuring.html
+http://adauth.arcath.net/index.html
+http://adauth.arcath.net/install.html
+http://adauth.arcath.net/pages.html
+http://adauth.arcath.net/sitemap.txt
+http://adauth.arcath.net/tags.html
+
+http://adauth.arcath.net/Releases/2012/02/06/1-2-1
+http://adauth.arcath.net/General News/2012/02/03/New-Site

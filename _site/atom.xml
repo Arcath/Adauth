@@ -2,15 +2,47 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>Adauth</title>
- <link href="http://arcath.github.com/adauth/atom.xml" rel="self"/>
- <link href="http://arcath.github.com/adauth"/>
- <updated>2012-02-02T15:28:01+00:00</updated>
- <id>http://arcath.github.com/adauth</id>
+ <link href="http://adauth.arcath.net/atom.xml" rel="self"/>
+ <link href="http://adauth.arcath.net"/>
+ <updated>2012-02-06T10:09:13+00:00</updated>
+ <id>http://adauth.arcath.net</id>
  <author>
-   <name>Adam Laycock</name>
-   <email>blah@email.test</email>
+   <name>Adam "Arcath" Laycock</name>
+   <email>gems@arcath.net</email>
  </author>
 
+ 
+ <entry>
+   <title>1.2.1</title>
+   <link href="http://adauth.arcath.net/Releases/2012/02/06/1-2-1"/>
+   <updated>2012-02-06T00:00:00+00:00</updated>
+   <id>hhttp://adauth.arcath.net/Releases/2012/02/06/1-2-1</id>
+   <content type="html">&lt;p&gt;&lt;em&gt;This is a mirror of a post on &lt;a href='http://www.arcath.net'&gt;Arcath.net&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Adauth&amp;#8217;s development has slowed a lot of late as I&amp;#8217;ve had other priorities (see &lt;a href='http://www.arcath.net/post/Kashflow_API_Gem'&gt;Kashflow API Gem&lt;/a&gt;) to the point that 1.2.1 is a collection of bug fixes and community submitted code.&lt;/p&gt;
+
+&lt;p&gt;First off Adauth now catches timeouts and reports that the server isn&amp;#8217;t available, you can of course catch the error and handle it how you like. When the error is raised it means that either your domain controller is off or Adauth is mis-configured.&lt;/p&gt;
+
+&lt;p&gt;It was raised in issue &lt;a href='https://github.com/Arcath/Adauth/pull/19'&gt;#19&lt;/a&gt; that Adauth was doing some processing on the return data before passing it into the supplied block, which meant that if you wanted to interact with the raw data instead of a to_s&amp;#8217;ed version of it you would have to change it back.&lt;/p&gt;
+
+&lt;p&gt;Issue &lt;a href='https://github.com/Arcath/Adauth/issues/20'&gt;#20&lt;/a&gt; is a Ruby 1.9 compatibility issue where it was adding [&amp;#8221; &amp;#8230; &amp;#8220;] around strings returned from LDAP. It has been fixed for people using the generated code, and 1.3 should contain the fix for all users.&lt;/p&gt;</content>
+ </entry>
+ 
+ <entry>
+   <title>New Site</title>
+   <link href="http://adauth.arcath.net/General News/2012/02/03/New-Site"/>
+   <updated>2012-02-03T00:00:00+00:00</updated>
+   <id>hhttp://adauth.arcath.net/General News/2012/02/03/New-Site</id>
+   <content type="html">&lt;p&gt;Adauths Documentation site has been through a few changes and has never really been up to date, even the wiki has lagged behind on occasion.&lt;/p&gt;
+
+&lt;p&gt;Arcath.net is perfectly capable of hosting the site but its not editable by anyone which burdens me with documenting every single change. So it its now hosted using &lt;a href='http://pages.github.com'&gt;Github Pages&lt;/a&gt; as the project site for Adauth, which means that anyone can edit the site by forking adauth and modifying the &lt;em&gt;gh-pages&lt;/em&gt; branch.&lt;/p&gt;
+
+&lt;p&gt;I ask that anyone making changes to Adauth modify this site as appropriate.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href='https://www.github.com/Arcath'&gt;Arcath&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+ </entry>
  
  
 </feed>
