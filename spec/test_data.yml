@@ -1,0 +1,22 @@
+domain:
+    domain: ed-itsolutions.com
+    server: 10.0.0.1
+    base: "dc=ed-itsolutions, dc=com"
+    port: 389
+    pass_allowed_groups:
+        - WebAppSG
+    fail_allowed_groups:
+        - Group2
+    pass_allowed_ous:
+        - Web App Accounts
+    fail_allowed_ous:
+        - Ou2
+    admin_user: Administrator
+    admin_password: Secure4tress
+
+user:
+    login: edit
+    password: Pugwash0
+    group: WebAppSG
+    ou: Web App Accounts
+    email: test@example.com
