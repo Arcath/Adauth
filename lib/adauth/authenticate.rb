@@ -21,8 +21,8 @@ module Adauth
     # Will return `nil` if the username is worng, if the admin details are not set an error will be raised.
     def self.passwordless_login(login)
         @conn = Adauth::AdminConnection.bind
-        if user = @conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login)).first
-            return Adauth::User.new(user)
+        if user = @conn.search(:filter => Net::LDAP::Filter.eq('sAMAccountName', login))
+            return Adauth::User.new(user.first)
         else
             return nil
         end
