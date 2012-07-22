@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
     s.homepage = "http://adauth.arcath.net"
     s.summary = "Provides Active Directory authentication for Rails"
     
+    s.add_development_dependency "rake"
     s.add_development_dependency "rspec"
     s.add_dependency "net-ldap"
     
