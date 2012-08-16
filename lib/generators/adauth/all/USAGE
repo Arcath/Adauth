@@ -1,5 +1,0 @@
-Description:
-  Runs all the adauth generators with defaults.
-
-Example:
-  rails g adauth:all

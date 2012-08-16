@@ -1,7 +1,0 @@
-Description:
-  Creates a controller for sessions.
-
-Example:
-  rails g adauth:sessions user
-
-  rails g adauth:sessions employee

@@ -1,5 +1,3 @@
 module Adauth
-    
-    # The version of the gem
-    Version = "1.2.1"
+    Version = "2.0.0pre"
 end
