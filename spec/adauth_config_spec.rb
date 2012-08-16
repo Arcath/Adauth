@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Adauth::Config do
+describe Adauth::Config, :no_ad => true do
     it "should default port to 389" do
         config = Adauth::Config.new
         config.port.should eq 389
