@@ -15,6 +15,7 @@ require 'adauth/ad_objects/ou'
 require 'adauth/ad_objects/user'
 # Rails
 require 'adauth/rails'
+require 'adauth/rails/helpers'
 require 'adauth/rails/model_bridge'
 
 # Adauth Container Module

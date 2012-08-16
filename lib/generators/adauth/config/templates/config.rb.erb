@@ -7,6 +7,13 @@ Adauth.configure do |c|
 	# it will be the DNS suffix applied to your machines
 	c.domain = "example.com"
 
+	# Adauth needs a query user to interact with the domain.
+	# This user can be anything with domain access
+	#
+	# If Adauth doesn't work contact your IT support and make sure this account has full query access
+	c.query_user = "username"
+	c.query_password = "password"
+
 	# The IP address or Hostname of a DC (Domain Controller) on your network
 	#
 	# This could be anything and probably wont be 127.0.0.1
@@ -29,11 +36,6 @@ Adauth.configure do |c|
 
 	# If your DC is using SSL, set encryption to :simple_tls
 	#c.encryption = :simple_tls
-
-	# If your DC disallows Anonymous requests, you may need to enter an admin_user
-	# and admin_password
-	#c.admin_user = "Administrator"
-	#c.admin_password = "Password"
 
 	# Windows Security groups to allow
 	#
