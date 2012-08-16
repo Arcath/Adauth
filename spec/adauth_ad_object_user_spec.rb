@@ -19,7 +19,7 @@ describe Adauth::AdObjects::User do
         user.groups.first.should be_a Adauth::AdObjects::Group
     end
     
-    it "should return true for menber_of" do
+    it "should return true for member_of" do
         default_config
         user = administrator
         user.member_of?("Domain Admins").should be_true

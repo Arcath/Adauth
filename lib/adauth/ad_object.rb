@@ -66,6 +66,16 @@ module Adauth
             @ous
         end
         
+        def dn_ous
+            unless @dn_ous
+                @dn_ous = []
+                @ldap_object.dn.split(/,/).each do |entry|
+                    @dn_ous.push entry.gsub(/OU=/, '').gsub(/CN=/,'') if entry =~ /OU=/ or entry == "CN=Users"
+                end
+            end
+            @dn_ous
+        end
+        
         private
         
         def convert_to_objects(array)

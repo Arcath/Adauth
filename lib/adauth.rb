@@ -5,6 +5,7 @@ require 'timeout'
 require 'adauth/version'
 # Classes
 require 'adauth/ad_object'
+require 'adauth/authenticate'
 require 'adauth/config'
 require 'adauth/connection'
 # AdObjects
