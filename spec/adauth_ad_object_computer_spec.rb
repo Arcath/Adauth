@@ -3,7 +3,6 @@ require 'spec_helper'
 describe Adauth::AdObjects::Computer do
     it "Should find a computer" do
         default_config
-        raise "foo"
         pdc.should be_a Adauth::AdObjects::Computer
     end
     
