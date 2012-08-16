@@ -1,41 +1,53 @@
+# Requires
 require 'net/ldap'
 require 'timeout'
+# Version
 require 'adauth/version'
-require 'adauth/user'
-require 'adauth/config'
-require 'adauth/helpers'
-require 'adauth/connection'
-require 'adauth/group'
-require 'adauth/admin_connection'
+# Classes
+require 'adauth/ad_object'
 require 'adauth/authenticate'
-require 'adauth/user_model'
+require 'adauth/config'
+require 'adauth/connection'
+# AdObjects
+require 'adauth/ad_objects/computer'
+require 'adauth/ad_objects/group'
+require 'adauth/ad_objects/ou'
+require 'adauth/ad_objects/user'
+# Rails
+require 'adauth/rails'
+require 'adauth/rails/helpers'
+require 'adauth/rails/model_bridge'
 
-# The top level module
-#
-# For Adauths documentation please see the github wiki.
+# Adauth Container Module
 module Adauth
-    
-    # Used to configure Adauth
-    #
-    # Called as
-    #    Adauth.configure do |c|
-    #        c.foo = "bar"
-    #    end
-    #
-    # Configures Adauth and is required for Adauth to work.
+    # Yields a new config object and then sets it as the Adauth Config
     def self.configure
-       @config = Config.new
-       yield(@config) 
+        @config = Config.new
+        yield(@config)
     end
     
-    # Returns the config object
-    #
-    # Allows access to the adauth config object so you can call the config values in your application
-    def self.config
-        @config
+    # Returns Adauths current connection to ActiveDirectory
+    def self.connection
+        raise "Adauth needs configuring before use" if @config == nil
+        connect unless @connection
+        @connection
     end
     
-    # Rails generators
-    module Generators
+    # Connects to ActiveDirectory using the query user details
+    def self.connect
+        @connection = Adauth::Connection.new(connection_hash(@config.query_user, @config.query_password)).bind
+    end
+    
+    # Generates a hash for the connection class, takes a username and password
+    def self.connection_hash(user, password)
+        { 
+            :domain => @config.domain, 
+            :server => @config.server, 
+            :port => @config.port, 
+            :base => @config.base, 
+            :encryption => @config.encryption, 
+            :username => user, 
+            :password => password 
+        }
     end
 end

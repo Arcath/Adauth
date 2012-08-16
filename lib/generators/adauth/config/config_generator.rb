@@ -2,7 +2,7 @@ module Adauth
     module Generators
         
         # Generates a sample config file
-        class ConfigGenerator < Rails::Generators::Base
+        class ConfigGenerator < ::Rails::Generators::Base
             source_root File.expand_path('../templates', __FILE__)
             
             # Generates a sample config file

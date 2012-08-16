@@ -7,6 +7,13 @@ Adauth.configure do |c|
 	# it will be the DNS suffix applied to your machines
 	c.domain = "example.com"
 
+	# Adauth needs a query user to interact with the domain.
+	# This user can be anything with domain access
+	#
+	# If Adauth doesn't work contact your IT support and make sure this account has full query access
+	c.query_user = "username"
+	c.query_password = "password"
+
 	# The IP address or Hostname of a DC (Domain Controller) on your network
 	#
 	# This could be anything and probably wont be 127.0.0.1
@@ -27,13 +34,8 @@ Adauth.configure do |c|
 	# If your DC is using SSL, the port may be 636.
 	#c.port = 389
 
-  # If your DC is using SSL, set encryption to :simple_tls
-  #c.encryption = :simple_tls
-
-	# If your DC disallows Anonymous requests, you may need to enter an admin_user
-	# and admin_password
-	#c.admin_user = "Administrator"
-	#c.admin_password = "Password"
+	# If your DC is using SSL, set encryption to :simple_tls
+	#c.encryption = :simple_tls
 
 	# Windows Security groups to allow
 	#
@@ -48,19 +50,4 @@ Adauth.configure do |c|
 	#
 	# Takes an array for group names
 	#c.denied_groups = ["Group1", "Group2"]
-
-	# Additional single attributes to fetch
-	#
-	# Single Values to fetch from Active Directory for example phone number
-	#
-	# Takes a hash in the form { :method_on_Adauth::User => :field_in_ad }
-	#c.ad_sv_attrs = { :phone => :telephonenumber }
-
-	# Additional multi attributes to fetch
-	#
-	# Multiple Values to fetch from Active Directory
-	#
-	# Takes a hash in the form { :method_on_Adauth::User => [ :field_in_ad, Proc.new { |g| operations_to_turn_field_into_array } ] }
-	# Example os for groups (already provided)
-	#c.ad_mv_attrs(:groups => [ :memberof, Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ])
 end
