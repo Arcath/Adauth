@@ -16,24 +16,27 @@ require 'adauth/ad_objects/user'
 # Rails
 
 
-# Main Module
+# Adauth Container Module
 module Adauth
-    
+    # Yields a new config object and then sets it as the Adauth Config
     def self.configure
         @config = Config.new
         yield(@config)
     end
     
+    # Returns Adauths current connection to ActiveDirectory
     def self.connection
         raise "Adauth needs configuring before use" if @config == nil
         connect unless @connection
         @connection
     end
     
+    # Connects to ActiveDirectory using the query user details
     def self.connect
         @connection = Adauth::Connection.new(connection_hash(@config.query_user, @config.query_password)).bind
     end
     
+    # Generates a hash for the connection class, takes a username and password
     def self.connection_hash(user, password)
         { 
             :domain => @config.domain, 

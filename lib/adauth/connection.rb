@@ -1,9 +1,17 @@
 module Adauth
+    # Active Directory Connection wrapper
+    #
+    # Handles errors and configures the connection.
     class Connection
         def initialize(config)
             @config = config
         end
         
+        # Attempts to bind to Active Directory
+        #
+        # If it works it returns the connection
+        #
+        # If it fails it raises and exception
         def bind
             conn = Net::LDAP.new :host => @config[:server],
                                  :port => @config[:port],

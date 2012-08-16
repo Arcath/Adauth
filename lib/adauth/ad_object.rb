@@ -1,5 +1,11 @@
 module Adauth
+    # Active Directory Interface Object
+    #
+    # Objects inherit from this class.
+    #
+    # Provides all the common functions for Active Directory.
     class AdObject
+        # Returns all objects which have the ObjectClass of the inherited class
         def self.all
             results = []
             Adauth.connection.search(:filter => self::ObjectFilter).each do |result|
@@ -8,6 +14,9 @@ module Adauth
             results
         end
         
+        # Returns all the objects which match the supplied query
+        #
+        # Uses ObjectFilter to restrict to the current object
         def self.where(field, value)
             results = []
             search_filter = Net::LDAP::Filter.eq(field, value)
@@ -18,24 +27,17 @@ module Adauth
             results
         end
         
-        def self.where_dn_ends(value)
-            results = []
-            search_filter = Net::LDAP::Filter.ends('dn', value)
-            joined_filter = search_filter & self::ObjectFilter
-            Adauth.connection.search(:filter => joined_filter).each do |result|
-                results.push self.new(result)
-            end
-            results
-        end
-        
+        # Creates a new instance of the object and sets @ldap_object to the passed Net::LDAP entity        
         def initialize(ldap_object)
             @ldap_object = ldap_object
         end
         
+        # Allows direct access to @ldap_object 
         def ldap_object
             @ldap_object
         end
         
+        # Over rides method_missing and interacts with @ldap_object
         def method_missing(method, *args)
             if self.class::Fields.keys.include?(method)
                 field = self.class::Fields[method]
@@ -49,6 +51,7 @@ module Adauth
             end
         end
         
+        # Returns all the groups the object is a member of
         def groups
             unless @groups
                 @groups = convert_to_objects(cn_groups)
@@ -56,6 +59,7 @@ module Adauth
             @groups
         end
         
+        # Returns all the ous the object is in
         def ous
             unless @ous
                 @ous = []
@@ -66,6 +70,7 @@ module Adauth
             @ous
         end
         
+        # CSV Version of the ous list (can't be pulled over from AD)
         def dn_ous
             unless @dn_ous
                 @dn_ous = []
@@ -91,5 +96,9 @@ module Adauth
             group = Adauth::AdObjects::Group.where('sAMAccountName', entity).first
             (user || group)
         end
+    end
+    
+    # Container for Objects which inherit from Adauth::AdObject
+    module AdObjects
     end
 end
