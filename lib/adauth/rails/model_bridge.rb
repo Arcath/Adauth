@@ -33,7 +33,8 @@ module Adauth
             def update_from_adauth(adauth_model)
                 self.class::AdauthMappings.each do |k, v|
                     setter = "#{k.to_s}=".to_sym
-                    self.send(setter, adauth_model.send(v))
+                    value = v.is_a?(Array) ? v.join(", ") : v 
+                    self.send(setter, adauth_model.send(value))
                 end
                 self.save
             end
