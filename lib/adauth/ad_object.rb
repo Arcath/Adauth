@@ -1,4 +1,8 @@
 module Adauth
+    def self.add_field(object, adauth_method, ldap_method)
+        object::Fields[adauth_method] = ldap_method
+    end
+    
     # Active Directory Interface Object
     #
     # Objects inherit from this class.
@@ -79,6 +83,10 @@ module Adauth
                 end
             end
             @dn_ous
+        end
+        
+        def modify(operations)
+            raise "Modify Operation Failed" unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
         end
         
         private

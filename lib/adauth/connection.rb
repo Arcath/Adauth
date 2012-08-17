@@ -21,7 +21,7 @@ module Adauth
             end
 
             conn.auth "#{@config[:username]}@#{@config[:domain]}", @config[:password]
-
+            
             begin
                 Timeout::timeout(10){
                     if conn.bind
