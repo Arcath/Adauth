@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    adauth (2.0.0pre)
+    adauth (2.0.0pre1)
       net-ldap
 
 GEM

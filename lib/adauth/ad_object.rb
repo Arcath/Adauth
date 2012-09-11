@@ -46,7 +46,7 @@ module Adauth
             if self.class::Fields.keys.include?(method)
                 field = self.class::Fields[method]
                 if field.is_a? Symbol
-                    return @ldap_object.send(field).to_s
+                    return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "")
                 elsif field.is_a? Array
                     @ldap_object.send(field.first).collect(&field.last)
                 end
