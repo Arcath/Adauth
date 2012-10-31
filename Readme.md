@@ -13,13 +13,15 @@ and run a bundle install
 
 ## Usage
 
+### In Rails
+
 First off create a new config file by running the config generator
 
     rails g adauth:config
 
 Fill out the config values in _config/initializers/adauth.rb_
 
-### Joining a model to Adauth
+#### Joining a model to Adauth
 
 If you want to link your user model to Adauth you can use this simple code:
 
@@ -43,6 +45,22 @@ This gives you a bridge between Adauth and your model. When you call `User.creat
 	
 This can be used for any model and anything that you pull over through adauth.
 
-### SessionsController
+#### SessionsController
 
-TODO
+You can use a premade sessions controller by running
+
+    rails g adauth:sessions
+	
+Which adds a couple of routes, a sessions controller and a login form. To login go to _/sessions/new_ and fill out the form, you will then POST to _/adauth_ and if succesful you will be sent back to _root_path_
+
+### In Scripts
+
+To use Adauth in a script or other program just call `Adauth.configure` somewhere at the begining of the script, once configured Adauth can be used anywhere in your program the same as rails.
+
+## Configuring
+
+Adauth has a few configuration options which are described in detail on the [wiki](https://github.com/Arcath/Adauth/wiki/Configuring).
+
+## Developing
+
+Before you can run the tests you will need to write a yml file with your domain settings in and place it at _spec/test_data.yml_, there is an example of this file in the spec folder
