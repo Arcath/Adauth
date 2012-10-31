@@ -1,0 +1,7 @@
+domain:
+  domain: example.com
+  port: 389
+  base: "dc=example, dc=com"
+  server: dc1.example.com
+  query_user: User.Name
+  query_password: Password
