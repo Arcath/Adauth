@@ -22,13 +22,17 @@ module Adauth
         #
         # Uses ObjectFilter to restrict to the current object
         def self.where(field, value)
-            results = []
             search_filter = Net::LDAP::Filter.eq(field, value)
             joined_filter = search_filter & self::ObjectFilter
-            Adauth.connection.search(:filter => joined_filter).each do |result|
-                results.push self.new(result)
+            filter joined_filter
+        end
+        
+        def self.filter(filter)
+          results = []
+            Adauth.connection.search(:filter => filter).each do |result|
+              results.push self.new(result)
             end
-            results
+          results
         end
         
         # Creates a new instance of the object and sets @ldap_object to the passed Net::LDAP entity        
