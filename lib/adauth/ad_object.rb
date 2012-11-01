@@ -11,11 +11,7 @@ module Adauth
     class AdObject
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
-            results = []
-            Adauth.connection.search(:filter => self::ObjectFilter).each do |result|
-                results.push self.new(result)
-            end
-            results
+            filter(self::ObjectFilter)
         end
         
         # Returns all the objects which match the supplied query
@@ -23,16 +19,23 @@ module Adauth
         # Uses ObjectFilter to restrict to the current object
         def self.where(field, value)
             search_filter = Net::LDAP::Filter.eq(field, value)
-            joined_filter = search_filter & self::ObjectFilter
-            filter joined_filter
+            filter(add_object_filter(search_filter))
         end
         
+        # Returns all LDAP objects that match the given filter
+        #
+        # Use with add_object_filter to make sure that you only get objects that match the object you are querying though
         def self.filter(filter)
           results = []
             Adauth.connection.search(:filter => filter).each do |result|
               results.push self.new(result)
             end
           results
+        end
+        
+        # Adds the object filter to the passed filter
+        def self.add_object_filter(filter)
+          filter & self::ObjectFilter
         end
         
         # Creates a new instance of the object and sets @ldap_object to the passed Net::LDAP entity        
