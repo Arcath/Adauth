@@ -63,4 +63,4 @@ Adauth has a few configuration options which are described in detail on the [wik
 
 ## Developing
 
-Before you can run the tests you will need to write a yml file with your domain settings in and place it at _spec/test_data.yml_, there is an example of this file in the spec folder
+Before you can run the tests you will need to write a yml file with your domain settings in and place it at _spec/test_data.yml_, there is an example of this file in the spec folder.
