@@ -1,4 +1,8 @@
 module Adauth
+    # Container for Objects which inherit from Adauth::AdObject
+    module AdObjects
+    end
+  
     def self.add_field(object, adauth_method, ldap_method)
         object::Fields[adauth_method] = ldap_method
     end
@@ -8,10 +12,10 @@ module Adauth
     # Objects inherit from this class.
     #
     # Provides all the common functions for Active Directory.
-    class AdObject
+    class AdObject      
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
-            filter(self::ObjectFilter)
+            self.filter(self::ObjectFilter)
         end
         
         # Returns all the objects which match the supplied query
@@ -96,6 +100,27 @@ module Adauth
             raise "Modify Operation Failed" unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
         end
         
+        def members
+            unless @members
+                @members = []
+                [Adauth::AdObjects::Computer, Adauth::AdObjects::OU, Adauth::AdObjects::User, Adauth::AdObjects::Group].each do |object|
+                    object.all.each do |entity|
+                        @members.push entity if entity.is_a_member?(self)
+                    end
+                end
+            end
+            @members
+        end
+        
+        def is_a_member?(parent)
+          my_split_dn = @ldap_object.dn.split(",")
+          parent_split_dn = parent.ldap_object.dn.split(",")
+          if (my_split_dn.count - 1) == parent_split_dn.count
+            return true if my_split_dn[1] == parent_split_dn[0]
+          end
+          return false
+        end
+        
         private
         
         def convert_to_objects(array)
@@ -111,9 +136,5 @@ module Adauth
             group = Adauth::AdObjects::Group.where('sAMAccountName', entity).first
             (user || group)
         end
-    end
-    
-    # Container for Objects which inherit from Adauth::AdObject
-    module AdObjects
     end
 end

@@ -3,7 +3,7 @@ module Adauth
         # Active Directory OU Object
         #
         # Inherits from Adauth::AdObject
-        class OU < Adauth::AdObject
+        class Folder < Adauth::AdObject
             # Field mapping
             #
             # Maps methods to LDAP fields e.g.
@@ -22,7 +22,11 @@ module Adauth
             # Object Net::LDAP filter
             #
             # Used to restrict searches to just this object
-            ObjectFilter = Net::LDAP::Filter.eq("objectClass", "organizationalUnit")
+            ObjectFilter = Net::LDAP::Filter.eq("objectClass", "top")
+            
+            def self.root
+              self.new(Adauth.connection.search(:filter => Net::LDAP::Filter.eq("objectClass", "Domain")).first)
+            end
         end
     end
 end
