@@ -3,6 +3,7 @@ module Adauth
     module AdObjects
     end
   
+    # Add a field to the specified model
     def self.add_field(object, adauth_method, ldap_method)
         object::Fields[adauth_method] = ldap_method
     end
@@ -96,10 +97,12 @@ module Adauth
             @dn_ous
         end
         
+        # Runs a modify action on the current object, takes an aray of operations
         def modify(operations)
             raise "Modify Operation Failed" unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
         end
         
+        # Returns an array of member objects for this object
         def members
             unless @members
                 @members = []
@@ -112,6 +115,7 @@ module Adauth
             @members
         end
         
+        # Checks to see if the object is a member of a given parent (though DN)
         def is_a_member?(parent)
           my_split_dn = @ldap_object.dn.split(",")
           parent_split_dn = parent.ldap_object.dn.split(",")
