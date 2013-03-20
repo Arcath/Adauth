@@ -28,17 +28,18 @@ module Adauth
             def self.included(base)
                 base.extend ClassMethods
             end
-            
+
             # Uses AdauthMappings to update the values on the model using the ones from Adauth
             def update_from_adauth(adauth_model)
                 self.class::AdauthMappings.each do |k, v|
                     setter = "#{k.to_s}=".to_sym
-                    value = v.is_a?(Array) ? v.join(", ") : v 
+                    value = v.is_a?(Array) ? v.join(", ") : v
                     self.send(setter, adauth_model.send(value))
                 end
                 self.save
+                self
             end
-            
+
             # Class Methods for ModelBridge
             module ClassMethods
                 # Creates a new RailsModel from the adauth_model
@@ -46,7 +47,7 @@ module Adauth
                     rails_model = self.new
                     rails_model.update_from_adauth(adauth_model)
                 end
-                
+
                 # Used to create the RailsModel if it doesn't exist and update it if it does
                 def return_and_create_from_adauth(adauth_model)
                     find_method = "find_by_#{self::AdauthSearchField.last}".to_sym
