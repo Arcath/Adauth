@@ -17,7 +17,7 @@ module Adauth
                                  :port => @config[:port],
                                  :base => @config[:base]
             if @config[:encryption]
-               conn.encryption = @config[:encryption]
+               conn.encryption @config[:encryption]
             end
 
             conn.auth "#{@config[:username]}@#{@config[:domain]}", @config[:password]
