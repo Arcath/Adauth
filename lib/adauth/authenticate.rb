@@ -32,6 +32,7 @@ module Adauth
         else
             denied = user
         end
+
         allowed == denied
     end
     
@@ -48,6 +49,7 @@ module Adauth
         else
             denied = user
         end
+
         allowed == denied
     end
 end
