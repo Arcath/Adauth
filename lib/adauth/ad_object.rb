@@ -31,9 +31,15 @@ module Adauth
         # Use with add_object_filter to make sure that you only get objects that match the object you are querying though
         def self.filter(filter)
           results = []
-            Adauth.connection.search(:filter => filter).each do |result|
-              results.push self.new(result)
-            end
+
+          result = Adauth.connection.search(:filter => filter)
+
+          raise 'Search returned NIL' if result == nil
+
+          result.each do |entry|
+            results << self.new(entry)
+          end
+
           results
         end
         
@@ -97,7 +103,7 @@ module Adauth
         end
         
         def modify(operations)
-            raise "Modify Operation Failed" unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
+            raise 'Modify Operation Failed' unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
         end
         
         def members
