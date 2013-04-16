@@ -23,6 +23,10 @@ module Adauth
     def self.allowed_group_login(user)
         if @config.allowed_groups != []
             allowed = (user && @config.allowed_groups != (@config.allowed_groups - user.cn_groups)) ? user : nil
+
+            if allowed == nil
+              allowed = group_in_group(user) != nil ? user : nil
+            end
         else
             allowed = user
         end
@@ -52,4 +56,22 @@ module Adauth
 
         allowed == denied
     end
+
+  def self.group_in_group(adobject)
+    # Loop through each users group and see if it's a member of an allowed group
+    adobject.cn_groups.each do |group|
+
+      if @config.allowed_groups.include?(group)
+        return group
+      end
+
+      adGroup = Adauth::AdObjects::Group.where('name', group).first
+
+      unless self.group_in_group(adGroup) == nil
+        return true
+      end
+    end
+
+    nil
+  end
 end

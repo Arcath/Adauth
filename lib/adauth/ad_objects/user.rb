@@ -27,7 +27,7 @@ module Adauth
             # Object Net::LDAP filter
             #
             # Used to restrict searches to just this object      
-            ObjectFilter = Net::LDAP::Filter.eq("objectClass", "user")
+            ObjectFilter = Net::LDAP::Filter.eq('objectClass', 'user')
           
             # Returns a connection to AD within the users context, used to check a user credentails
             #
