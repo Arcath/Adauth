@@ -59,17 +59,21 @@ module Adauth
 
   def self.group_in_group(adobject)
     # Loop through each users group and see if it's a member of an allowed group
-    adobject.cn_groups.each do |group|
+    begin
+      adobject.cn_groups.each do |group|
 
-      if @config.allowed_groups.include?(group)
-        return group
+        if @config.allowed_groups.include?(group)
+          return group
+        end
+
+        adGroup = Adauth::AdObjects::Group.where('name', group).first
+
+        unless self.group_in_group(adGroup) == nil
+          return true
+        end
       end
-
-      adGroup = Adauth::AdObjects::Group.where('name', group).first
-
-      unless self.group_in_group(adGroup) == nil
-        return true
-      end
+    rescue
+      return nil
     end
 
     nil
