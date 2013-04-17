@@ -5,7 +5,7 @@ tmp/*
 spec/test_data.yml
 doc/*
 .yardoc/*
-
+.idea/
 .rvmrc
 
 spec/test.sqlite3

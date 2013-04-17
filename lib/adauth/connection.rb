@@ -27,11 +27,11 @@ module Adauth
                     if conn.bind
                         return conn
                     else
-                        raise "Query User Rejected"
+                        raise 'Query User Rejected'
                     end
                 }
             rescue Timeout::Error
-                raise "Unable to connect to LDAP Server"
+                raise 'Unable to connect to LDAP Server'
             end
         end
     end

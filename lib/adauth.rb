@@ -29,7 +29,7 @@ module Adauth
     
     # Returns Adauths current connection to ActiveDirectory
     def self.connection
-        raise "Adauth needs configuring before use" if @config == nil
+        raise 'Adauth needs configuring before use' if @config == nil
         connect unless @connection
         @connection
     end
