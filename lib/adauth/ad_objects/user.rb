@@ -27,7 +27,7 @@ module Adauth
             # Object Net::LDAP filter
             #
             # Used to restrict searches to just this object      
-            ObjectFilter = Net::LDAP::Filter.eq("objectClass", "user")
+            ObjectFilter = Net::LDAP::Filter.eq('objectClass', 'user')
           
             # Returns a connection to AD within the users context, used to check a user credentails
             #
@@ -36,7 +36,7 @@ module Adauth
                 user_connection = Adauth::Connection.new(Adauth.connection_hash(user, password)).bind
             end
             
-            # Returns True/False if the user is member of the cupplied group
+            # Returns True/False if the user is member of the supplied group
             def member_of?(group)
                 cn_groups.include?(group)
             end
