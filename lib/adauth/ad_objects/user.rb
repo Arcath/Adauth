@@ -40,6 +40,21 @@ module Adauth
             def member_of?(group)
                 cn_groups.include?(group)
             end
+            
+            # Changes the password to the supplied value
+            def set_password(new_password)
+              password = microsoft_encode_password(new_password)
+              modify([[:replace, 'unicodePwd', password]])
+            end
+            
+            private
+            
+            def microsoft_encode_password(password)
+              out = ""
+              password = "\"" + password + "\""
+              password.length.times{|i| out+= "#{password[i..i]}\000" }
+              return out
+            end
         end
     end
 end
