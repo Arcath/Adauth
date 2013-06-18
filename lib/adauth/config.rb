@@ -19,7 +19,7 @@ module Adauth
         def domain=(s)
             @domain = s
             @server ||= s
-            @base ||= s.gsub(/\./,', dc=').gsub(/^/,"dc=")
+            @base ||= s.gsub(/\./,', dc=').prepend('dc=')
         end
     end
 end
