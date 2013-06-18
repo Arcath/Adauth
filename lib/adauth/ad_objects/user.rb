@@ -43,6 +43,7 @@ module Adauth
             
             # Changes the password to the supplied value
             def set_password(new_password)
+              Adauth.logger.info("password management") { "Attempting password reset for #{self.login}" }
               password = microsoft_encode_password(new_password)
               modify([[:replace, 'unicodePwd', password]])
             end

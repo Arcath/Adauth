@@ -19,7 +19,8 @@ module Net::BER::Extensions::String
     raw_string = raw_utf8_encoded
     [code].pack('C') + raw_string.length.to_ber_length_encoding + raw_string
   end
-
+  
+  # The patched method we need
   def raw_utf8_encoded
     if self.respond_to?(:encode)
       # Strings should be UTF-8 encoded according to LDAP.

@@ -4,17 +4,22 @@ module Adauth
     # Checks the groups & ous are in the allow/deny lists
     def self.authenticate(username, password)
         begin
+            Adauth.logger.info("authentication") { "Attempting to authenticate as #{username}" }
             if Adauth::AdObjects::User.authenticate(username, password)
                 user = Adauth::AdObjects::User.where('sAMAccountName', username).first
                 if allowed_group_login(user) && allowed_ou_login(user)
+                    Adauth.logger.info("authentication") { "Authentication succesful" }
                     return user
                 else
+                    Adauth.logger.info("authentication") { "Authentication failed (not in allowed group)" }
                     return false
                 end
             else
+                Adauth.logger.info("authentication") { "Authentication failed (bad username/password)" }
                 return false
             end
         rescue RuntimeError
+            Adauth.logger.info("authentication") { "Authentication failed (RuntimeError)" }
             return false
         end
     end

@@ -61,6 +61,12 @@ To use Adauth in a script or other program just call `Adauth.configure` somewher
 
 Adauth has a few configuration options which are described in detail on the [wiki](https://github.com/Arcath/Adauth/wiki/Configuring).
 
+## Logs
+
+Adauth logs to weekly logs in logs/adauth.log(.DATE)
+
+You can interact with the logger through `Adauth.logger` and set a new one using `Adauth.logger=`
+
 ## Developing
 
 Before you can run the tests you will need to write a yml file with your domain settings in and place it at _spec/test_data.yml_, there is an example of this file in the spec folder.

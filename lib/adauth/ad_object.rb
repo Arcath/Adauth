@@ -5,6 +5,7 @@ module Adauth
   
     # Add a field to the specified model
     def self.add_field(object, adauth_method, ldap_method)
+        Adauth.logger.info(object.inspect) { "Adding field \"#{ldap_method}\"" }
         object::Fields[adauth_method] = ldap_method
     end
     
@@ -16,6 +17,7 @@ module Adauth
     class AdObject      
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
+            Adauth.logger.info(self.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
             self.filter(self::ObjectFilter)
         end
         
@@ -24,6 +26,7 @@ module Adauth
         # Uses ObjectFilter to restrict to the current object
         def self.where(field, value)
             search_filter = Net::LDAP::Filter.eq(field, value)
+            Adauth.logger.info(self.inspect) { "Searching for all \"#{self::ObjectFilter}\" where #{field} = #{value}" }
             filter(add_object_filter(search_filter))
         end
         
