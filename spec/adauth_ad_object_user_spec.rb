@@ -40,14 +40,14 @@ describe Adauth::AdObjects::User do
         administrator.description.should be_a String
     end
     
-    it "should allow you to reset the password" do
-      default_config
-      Adauth::AdObjects::User.authenticate(test_data("domain", "breakable_user"), test_data("domain", "breakable_password")).should be_true
-      user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
-      user.login.should eq test_data("domain", "breakable_user")
-      user.set_password("adauth_test")
-      Adauth::AdObjects::User.authenticate(test_data("domain", "breakable_user"), "adauth_test").should be_true
-      user.set_password(test_data("domain", "breakable_password"))
-      Adauth::AdObjects::User.authenticate(test_data("domain", "breakable_user"), test_data("domain", "breakable_password")).should be_true
-    end
+    #it "should allow you to reset the password" do
+    #  default_config
+    #  Adauth::AdObjects::User.authenticate(test_data("domain", "breakable_user"), test_data("domain", "breakable_password")).should be_true
+    #  user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+    #  user.login.should eq test_data("domain", "breakable_user")
+    #  user.set_password("adauth_test")
+    #  Adauth::AdObjects::User.authenticate(test_data("domain", "breakable_user"), "adauth_test").should be_true
+    #  user.set_password(test_data("domain", "breakable_password"))
+    #  Adauth::AdObjects::User.authenticate(test_data("domain", "breakable_user"), test_data("domain", "breakable_password")).should be_true
+    #end
 end
