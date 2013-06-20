@@ -9,9 +9,11 @@ env:
  - "rake=0.8"
  - "rake=0.9"
 script: "bundle exec rspec -t no_ad"
+before_script: "mkdir log"
 notifications:
   email: false
 matrix:
   allow_failures:
     - rvm: 1.8.7
     - rvm: rbx-18mode
+
