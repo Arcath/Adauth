@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Adauth : Active Directory Interaction for Ruby" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Adauth</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Arcath/Adauth">View on GitHub</a>
+
+          <h1 id="project_title">Adauth</h1>
+          <h2 id="project_tagline">Active Directory Interaction for Ruby</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Arcath/Adauth/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Arcath/Adauth/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Add the Adauth gem to your Gemfile:</p>
+
+<pre><code>gem 'adauth'
+</code></pre>
+
+<p>and run a bundle install</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a name="in-rails" class="anchor" href="#in-rails"><span class="octicon octicon-link"></span></a>In Rails</h3>
+
+<p>First off create a new config file by running the config generator</p>
+
+<pre><code>rails g adauth:config
+</code></pre>
+
+<p>Fill out the config values in <em>config/initializers/adauth.rb</em></p>
+
+<h4>
+<a name="joining-a-model-to-adauth" class="anchor" href="#joining-a-model-to-adauth"><span class="octicon octicon-link"></span></a>Joining a model to Adauth</h4>
+
+<p>If you want to link your user model to Adauth you can use this simple code:</p>
+
+<pre><code>class User &lt; ActiveRecord::Base
+    include Adauth::Rails::ModelBridge
+
+    AdauthMappings = {
+        :login =&gt; :login
+        :group_strings =&gt; :cn_groups
+    }
+
+    AdauthSearchField = [:login, :login]
+end
+</code></pre>
+
+<p>This gives you a bridge between Adauth and your model. When you call <code>User.create_from_adauth(adauth_model)</code> it does:</p>
+
+<pre><code>u = User.new
+u.login = adauth_model.login
+u.group_strings = adauth_model.cn_groups
+u.save
+</code></pre>
+
+<p>This can be used for any model and anything that you pull over through adauth.</p>
+
+<h4>
+<a name="sessionscontroller" class="anchor" href="#sessionscontroller"><span class="octicon octicon-link"></span></a>SessionsController</h4>
+
+<p>You can use a premade sessions controller by running</p>
+
+<pre><code>rails g adauth:sessions
+</code></pre>
+
+<p>Which adds a couple of routes, a sessions controller and a login form. To login go to <em>/sessions/new</em> and fill out the form, you will then POST to <em>/adauth</em> and if succesful you will be sent back to <em>root_path</em></p>
+
+<h3>
+<a name="in-scripts" class="anchor" href="#in-scripts"><span class="octicon octicon-link"></span></a>In Scripts</h3>
+
+<p>To use Adauth in a script or other program just call <code>Adauth.configure</code> somewhere at the begining of the script, once configured Adauth can be used anywhere in your program the same as rails.</p>
+
+<h2>
+<a name="configuring" class="anchor" href="#configuring"><span class="octicon octicon-link"></span></a>Configuring</h2>
+
+<p>Adauth has a few configuration options which are described in detail on the <a href="https://github.com/Arcath/Adauth/wiki/Configuring">wiki</a>.</p>
+
+<h2>
+<a name="logs" class="anchor" href="#logs"><span class="octicon octicon-link"></span></a>Logs</h2>
+
+<p>Adauth logs to weekly logs in logs/adauth.log(.DATE)</p>
+
+<p>You can interact with the logger through <code>Adauth.logger</code> and set a new one using <code>Adauth.logger=</code></p>
+
+<h2>
+<a name="developing" class="anchor" href="#developing"><span class="octicon octicon-link"></span></a>Developing</h2>
+
+<p>Before you can run the tests you will need to write a yml file with your domain settings in and place it at <em>spec/test_data.yml</em>, there is an example of this file in the spec folder.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Adauth maintained by <a href="https://github.com/Arcath">Arcath</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
