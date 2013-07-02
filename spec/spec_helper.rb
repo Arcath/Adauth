@@ -1,3 +1,8 @@
+# Test coverage
+require 'simplecov'
+SimpleCov.start
+
+# Requires
 require 'adauth'
 require 'yaml'
 

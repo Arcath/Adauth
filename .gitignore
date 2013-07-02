@@ -8,6 +8,7 @@ doc/*
 .idea/
 .rvmrc
 log/*
+coverage/*
 
 spec/test.sqlite3
 
