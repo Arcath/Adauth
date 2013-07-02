@@ -14,9 +14,6 @@ module Adauth
                     Adauth.logger.info("authentication") { "Authentication failed (not in allowed group)" }
                     return false
                 end
-            else
-                Adauth.logger.info("authentication") { "Authentication failed (bad username/password)" }
-                return false
             end
         rescue RuntimeError
             Adauth.logger.info("authentication") { "Authentication failed (RuntimeError)" }

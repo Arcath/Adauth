@@ -11,6 +11,32 @@ describe Adauth, "#authenticate" do
         Adauth.authenticate(test_data("domain", "query_user"), "foo").should be_false
     end
     
+    it "should allow the user if allowed groups are used" do
+      Adauth.configure do |c|
+          c.domain = test_data("domain", "domain")
+          c.port = test_data("domain", "port")
+          c.base = test_data("domain", "base")
+          c.server = test_data("domain", "server")
+          c.query_user = test_data("domain", "query_user")
+          c.query_password = test_data("domain", "query_password")
+          c.allowed_groups = ["Administrators"]
+      end
+      Adauth.authenticate(test_data("domain", "query_user"), test_data("domain", "query_password")).should be_a Adauth::AdObjects::User
+    end
+    
+    it "should allow the user if allowed ous are used" do
+      Adauth.configure do |c|
+          c.domain = test_data("domain", "domain")
+          c.port = test_data("domain", "port")
+          c.base = test_data("domain", "base")
+          c.server = test_data("domain", "server")
+          c.query_user = test_data("domain", "query_user")
+          c.query_password = test_data("domain", "query_password")
+          c.allowed_ous = ["Users"]
+      end
+      Adauth.authenticate(test_data("domain", "query_user"), test_data("domain", "query_password")).should be_a Adauth::AdObjects::User
+    end
+    
     it "should reject a user if denied group is used" do
         Adauth.configure do |c|
             c.domain = test_data("domain", "domain")

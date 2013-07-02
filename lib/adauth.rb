@@ -28,6 +28,7 @@ module Adauth
     def self.configure
         @logger ||= Logger.new('log/adauth.log', 'weekly')
         @logger.info('load') { "Loading new config" }
+        @connection = nil
         @config = Config.new
         yield(@config)
     end

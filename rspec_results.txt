@@ -1,4 +1,5 @@
-............................
+.................................
 
-Finished in 2.06 seconds
-28 examples, 0 failures
+Finished in 12.08 seconds
+33 examples, 0 failures
+Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 436 / 460 LOC (94.78%) covered.
