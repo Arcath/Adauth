@@ -32,6 +32,7 @@ describe Adauth::AdObjects::User do
         administrator.modify([[:replace, :homephone, "8765"]])
         administrator.phone.should eq "8765"
         administrator.modify([[:replace, :homephone, number]])
+        administrator.phone.should eq number
     end
     
     it "should allow for additional methods" do
