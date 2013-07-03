@@ -108,7 +108,13 @@ module Adauth
         
         # Runs a modify action on the current object, takes an aray of operations
         def modify(operations)
-            raise 'Modify Operation Failed' unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
+          Adauth.logger.info(self.inspect) { "Attempting modify operations" }
+            unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
+              Adauth.logger.fatal(self.inspect) { "Modify Operations Failed!" }
+              Adauth.logger.fatal(self.inspect) { "Code: #{Adauth.connection.get_operation_result.code}" }
+              Adauth.logger.fatal(self.inspect) { "Message: #{Adauth.connection.get_operation_result.message}" }
+              raise 'Modify Operation Failed (see log for details)'
+            end
         end
         
         # Returns an array of member objects for this object

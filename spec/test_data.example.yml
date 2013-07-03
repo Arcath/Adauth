@@ -1,7 +1,11 @@
 domain:
   domain: example.com
-  port: 389
+  port: 389 # Change to 636 for ssl encryption
+  #encryption: simple_tls
+  #allow_fallback: 389 # Used to fallback to insecure
   base: "dc=example, dc=com"
   server: dc1.example.com
   query_user: User.Name
   query_password: Password
+  breakable_user: User.Name
+  breakable_password: Password

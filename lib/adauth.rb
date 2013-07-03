@@ -54,7 +54,8 @@ module Adauth
             :server => @config.server, 
             :port => @config.port, 
             :base => @config.base, 
-            :encryption => @config.encryption, 
+            :encryption => @config.encryption,
+            :allow_fallback => @config.allow_fallback,
             :username => user, 
             :password => password 
         }

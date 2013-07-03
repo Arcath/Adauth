@@ -32,6 +32,12 @@ module Adauth
                 }
             rescue Timeout::Error
                 raise 'Unable to connect to LDAP Server'
+            rescue Errno::ECONNRESET
+              if @config[:allow_fallback]
+                @config[:port] = @config[:allow_fallback]
+                @config[:encryption] = false
+                return Adauth::Connection.new(@config).bind
+              end
             end
         end
     end

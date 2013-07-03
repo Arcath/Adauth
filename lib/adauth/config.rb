@@ -3,7 +3,7 @@ module Adauth
     #
     # Sets the defaults an create and generates guess values.
     class Config
-        attr_accessor   :domain, :port, :base, :server, :encryption, :query_user, :query_password,
+        attr_accessor   :domain, :port, :base, :server, :encryption, :query_user, :query_password, :allow_fallback,
                         :allowed_groups, :denied_groups, :allowed_ous, :denied_ous, :contains_nested_groups
         
         def initialize
@@ -12,6 +12,7 @@ module Adauth
             @allowed_ous = []
             @denied_groups =[]
             @denied_ous = []
+            @allow_fallback = false
             @contains_nested_groups = false
         end
         

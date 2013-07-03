@@ -12,6 +12,8 @@ def default_config
         c.port = test_data("domain", "port")
         c.base = test_data("domain", "base")
         c.server = test_data("domain", "server")
+        c.encryption = test_data("domain", "encryption").to_sym if test_data("domain", "encryption")
+        c.allow_fallback = test_data("domain", "allow_fallback") if test_data("domain", "allow_fallback")
         c.query_user = test_data("domain", "query_user")
         c.query_password = test_data("domain", "query_password")
     end

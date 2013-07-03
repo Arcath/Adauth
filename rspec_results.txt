@@ -1,5 +1,10 @@
-.................................
+..................*...............
 
-Finished in 12.08 seconds
-33 examples, 0 failures
-Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 436 / 460 LOC (94.78%) covered.
+Pending:
+  Adauth::AdObjects::User should allow you to reset the password
+    # Insecure connection, unable to test change password
+    # ./spec/adauth_ad_object_user_spec.rb:44
+
+Finished in 12.2 seconds
+34 examples, 0 failures, 1 pending
+Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 460 / 486 LOC (94.65%) covered.
