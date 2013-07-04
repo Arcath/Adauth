@@ -59,8 +59,8 @@ module Adauth
         allowed == denied
     end
 
+  # Loop through each users group and see if it's a member of an allowed group
   def self.is_group_in_group(adobject)
-    # Loop through each users group and see if it's a member of an allowed group
     begin
       adobject.cn_groups.each do |group|
 

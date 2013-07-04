@@ -61,10 +61,12 @@ module Adauth
         }
     end
     
+    # Returns the logger object
     def self.logger
       @logger
     end
     
+    # Lets you set a new logger
     def self.logger=(inputs)
       @logger = inputs
     end

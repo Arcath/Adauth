@@ -64,6 +64,7 @@ module Net::BER::Extensions::String
     return result
   end
 
+  # Removes empty blocks from arrays
   def reject_empty_ber_arrays
     self.gsub(/0\000/n,'')
   end
