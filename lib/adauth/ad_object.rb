@@ -64,16 +64,15 @@ module Adauth
         
         # Over rides method_missing and interacts with @ldap_object
         def method_missing(method, *args)
-            if self.class::Fields.keys.include?(method)
-                field = self.class::Fields[method]
-                if field.is_a? Symbol
-                    return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "")
-                elsif field.is_a? Array
-                    @ldap_object.send(field.first).collect(&field.last)
-                end
-            else
-                super
+            if field = self.class::Fields[method]
+              if field.is_a? Symbol
+                return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "")
+              elsif field.is_a? Array
+                return @ldap_object.send(field.first).collect(&field.last)
+              end
             end
+            
+            super
         end
         
         # Returns all the groups the object is a member of
@@ -108,13 +107,13 @@ module Adauth
         
         # Runs a modify action on the current object, takes an aray of operations
         def modify(operations)
-          Adauth.logger.info(self.inspect) { "Attempting modify operations" }
-            unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
-              Adauth.logger.fatal(self.inspect) { "Modify Operations Failed!" }
-              Adauth.logger.fatal(self.inspect) { "Code: #{Adauth.connection.get_operation_result.code}" }
-              Adauth.logger.fatal(self.inspect) { "Message: #{Adauth.connection.get_operation_result.message}" }
-              raise 'Modify Operation Failed (see log for details)'
-            end
+          Adauth.logger.info(self.inspect) { "Attempting modify operation" }
+          unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
+            Adauth.logger.fatal(self.inspect) { "Modify Operation Failed!" }
+            Adauth.logger.fatal(self.inspect) { "Code: #{Adauth.connection.get_operation_result.code}" }
+            Adauth.logger.fatal(self.inspect) { "Message: #{Adauth.connection.get_operation_result.message}" }
+            raise 'Modify Operation Failed (see log for details)'
+          end
         end
         
         # Returns an array of member objects for this object

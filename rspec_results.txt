@@ -5,6 +5,6 @@ Pending:
     # Insecure connection, unable to test change password
     # ./spec/adauth_ad_object_user_spec.rb:44
 
-Finished in 12.2 seconds
+Finished in 12.1 seconds
 34 examples, 0 failures, 1 pending
-Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 460 / 486 LOC (94.65%) covered.
+Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 449 / 474 LOC (94.73%) covered.

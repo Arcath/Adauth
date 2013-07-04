@@ -23,40 +23,16 @@ module Adauth
     
     # Makes sure the user meets the group requirements
     def self.allowed_group_login(user)
-        if @config.allowed_groups != []
-            allowed = (user && @config.allowed_groups != (@config.allowed_groups - user.cn_groups)) ? user : nil
-
-            if allowed == nil
-              allowed = is_group_in_group(user) != nil ? user : nil
-            end
-        else
-            allowed = user
-        end
-
-        if @config.denied_groups != []
-            denied = (user && @config.denied_groups == (@config.denied_groups - user.cn_groups)) ? user : nil
-        else
-            denied = user
-        end
-
-        allowed == denied
+      return true if @config.allowed_groups.empty? && @config.denied_groups.empty?
+      return true if !((@config.allowed_groups & user.cn_groups).empty?)
+      return false if !((@config.denied_groups & user.cn_groups).empty?)
     end
     
     # Makes sure the user meets the ou requirements
     def self.allowed_ou_login(user)
-        if @config.allowed_ous != []
-            allowed = (user && @config.allowed_ous != (@config.allowed_ous - user.dn_ous)) ? user : nil
-        else
-            allowed = user
-        end
-
-        if @config.denied_ous != []
-            denied = (user && @config.denied_ous == (@config.denied_ous - user.dn_ous)) ? user : nil
-        else
-            denied = user
-        end
-
-        allowed == denied
+        return true if @config.allowed_ous.empty? && @config.denied_ous.empty?
+        return true if !((@config.allowed_ous & user.dn_ous).empty?)
+        return false if !((@config.denied_ous & user.dn_ous).empty?)
     end
 
   # Loop through each users group and see if it's a member of an allowed group
