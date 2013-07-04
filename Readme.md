@@ -1,5 +1,6 @@
 # Adauth
-[RDoc](http://rubydoc.info/github/Arcath/Adauth/master/frames) | [www](http://adauth.arcath.net) | [Gempage](http://rubygems.org/gems/adauth) | [![Status](https://secure.travis-ci.org/Arcath/Adauth.png?branch=master)](http://travis-ci.org/Arcath/Adauth) | [![Code Climate](https://codeclimate.com/github/Arcath/Adauth.png)](https://codeclimate.com/github/Arcath/Adauth)
+[RDoc](http://rubydoc.info/github/Arcath/Adauth/master/frames) | [www](http://adauth.arcath.net) | [Gempage](http://rubygems.org/gems/adauth) | [![Status](https://secure.travis-ci.org/Arcath/Adauth.png?branch=master)](http://travis-ci.org/Arcath/Adauth) | [![Code Climate](https://codeclimate.com/github/Arcath/Adauth.png)](https://codeclimate.com/github/Arcath/Adauth) | [![Dependency Status](https://gemnasium.com/Arcath/Adauth.png)](https://gemnasium.com/Arcath/Adauth)
+
 
 Easy to use Active Directory Authentication for Rails.
 
