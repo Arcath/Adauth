@@ -24,8 +24,8 @@ module Adauth
     # Makes sure the user meets the group requirements
     def self.allowed_group_login(user)
       return true if @config.allowed_groups.empty? && @config.denied_groups.empty?
-      return true if !((@config.allowed_groups & user.cn_groups).empty?)
-      return false if !((@config.denied_groups & user.cn_groups).empty?)
+      return true if !((@config.allowed_groups & user.cn_groups_nested).empty?)
+      return false if !((@config.denied_groups & user.cn_groups_nested).empty?)
     end
     
     # Makes sure the user meets the ou requirements
@@ -34,26 +34,4 @@ module Adauth
         return true if !((@config.allowed_ous & user.dn_ous).empty?)
         return false if !((@config.denied_ous & user.dn_ous).empty?)
     end
-
-  # Loop through each users group and see if it's a member of an allowed group
-  def self.is_group_in_group(adobject)
-    begin
-      adobject.cn_groups.each do |group|
-
-        if @config.allowed_groups.include?(group)
-          return group
-        end
-
-        adGroup = Adauth::AdObjects::Group.where('name', group).first
-
-        unless self.is_group_in_group(adGroup) == nil
-          return true
-        end
-      end
-    rescue
-      return nil
-    end
-
-    nil
-  end
 end

@@ -83,6 +83,19 @@ module Adauth
             @groups
         end
         
+        # The same as cn_groups, but with the parent groups included
+        def cn_groups_nested
+          @cn_groups_nested = cn_groups
+          cn_groups.each do |group|
+            ado = Adauth::AdObjects::Group.where('name', group).first
+            groups = convert_to_objects ado.cn_groups
+            groups.each do |g|
+              @cn_groups_nested.push g if !(@cn_groups_nested.include?(g))
+            end
+          end
+          return @cn_groups_nested
+        end
+        
         # Returns all the ous the object is in
         def ous
             unless @ous
@@ -109,9 +122,7 @@ module Adauth
         def modify(operations)
           Adauth.logger.info(self.inspect) { "Attempting modify operation" }
           unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
-            Adauth.logger.fatal(self.inspect) { "Modify Operation Failed!" }
-            Adauth.logger.fatal(self.inspect) { "Code: #{Adauth.connection.get_operation_result.code}" }
-            Adauth.logger.fatal(self.inspect) { "Message: #{Adauth.connection.get_operation_result.message}" }
+            Adauth.logger.fatal(self.inspect) { "Modify Operation Failed! Code: #{Adauth.connection.get_operation_result.code} Message: #{Adauth.connection.get_operation_result.message}" }
             raise 'Modify Operation Failed (see log for details)'
           end
         end

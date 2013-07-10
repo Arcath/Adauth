@@ -19,8 +19,9 @@ module Adauth
                     :name => :samaccountname,
                     :cn_members => [ :member,
                         Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ],
-                    :cn_groups => [ :memberof,
-                        Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ]
+                    :memberof => :member
+                    #:cn_groups => [ :memberof,
+                    #    Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ]
                 }
             
             # Object Net::LDAP filter
@@ -35,6 +36,10 @@ module Adauth
                     @members = convert_to_objects(cn_members)
                 end
                 @members
+            end
+            
+            def cn_groups
+              memberof.split(/.*?CN=(.*?),.*/)
             end
         end
     end
