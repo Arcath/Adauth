@@ -62,17 +62,20 @@ module Adauth
             @ldap_object
         end
         
-        # Over rides method_missing and interacts with @ldap_object
+        # Over ride method missing to see if the object has a field by that name
         def method_missing(method, *args)
-            if field = self.class::Fields[method]
-              if field.is_a? Symbol
-                return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "")
-              elsif field.is_a? Array
-                return @ldap_object.send(field.first).collect(&field.last)
-              end
-            end
-            
-            super
+          field = self.class::Fields[method]
+          return handle_field(field) if field
+          return super
+        end
+        
+        # Handle the output for the given field
+        def handle_field(field)
+          if field.is_a? Symbol
+            return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "")
+          elsif field.is_a? Array
+            return @ldap_object.send(field.first).collect(&field.last)
+          end
         end
         
         # Returns all the groups the object is a member of
