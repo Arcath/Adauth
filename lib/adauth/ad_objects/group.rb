@@ -31,7 +31,7 @@ module Adauth
                 
             # Returns all the objects which are members of this group
             def members
-                Adauth.logger.info(self.inspect) { "Getting group members for #{self.name}" }
+                Adauth.logger.info(self.class.inspect) { "Getting group members for #{self.name}" }
                 unless @members
                     @members = convert_to_objects(cn_members)
                 end

@@ -17,7 +17,7 @@ module Adauth
     class AdObject
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
-            Adauth.logger.info(self.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
+            Adauth.logger.info(self.class.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
             self.filter(self::ObjectFilter)
         end
         
@@ -26,7 +26,7 @@ module Adauth
         # Uses ObjectFilter to restrict to the current object
         def self.where(field, value)
             search_filter = Net::LDAP::Filter.eq(field, value)
-            Adauth.logger.info(self.inspect) { "Searching for all \"#{self::ObjectFilter}\" where #{field} = #{value}" }
+            Adauth.logger.info(self.class.inspect) { "Searching for all \"#{self::ObjectFilter}\" where #{field} = #{value}" }
             filter(add_object_filter(search_filter))
         end
         
@@ -120,9 +120,9 @@ module Adauth
         
         # Runs a modify action on the current object, takes an aray of operations
         def modify(operations)
-          Adauth.logger.info(self.inspect) { "Attempting modify operation" }
+          Adauth.logger.info(self.class.inspect) { "Attempting modify operation" }
           unless Adauth.connection.modify :dn => @ldap_object.dn, :operations => operations
-            Adauth.logger.fatal(self.inspect) { "Modify Operation Failed! Code: #{Adauth.connection.get_operation_result.code} Message: #{Adauth.connection.get_operation_result.message}" }
+            Adauth.logger.fatal(self.class.inspect) { "Modify Operation Failed! Code: #{Adauth.connection.get_operation_result.code} Message: #{Adauth.connection.get_operation_result.message}" }
             raise 'Modify Operation Failed (see log for details)'
           end
         end

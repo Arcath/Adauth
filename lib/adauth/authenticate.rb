@@ -11,7 +11,7 @@ module Adauth
                     Adauth.logger.info("authentication") { "Authentication succesful" }
                     return user
                 else
-                    Adauth.logger.info("authentication") { "Authentication failed (not in allowed group)" }
+                    Adauth.logger.info("authentication") { "Authentication failed (not in allowed group or ou)" }
                     return false
                 end
             end
