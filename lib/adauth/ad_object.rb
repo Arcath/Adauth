@@ -14,7 +14,7 @@ module Adauth
     # Objects inherit from this class.
     #
     # Provides all the common functions for Active Directory.
-    class AdObject      
+    class AdObject
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
             Adauth.logger.info(self.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
