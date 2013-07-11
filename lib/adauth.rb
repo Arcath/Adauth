@@ -1,7 +1,7 @@
 # Requires
+require 'logger'
 require 'net/ldap'
 require 'timeout'
-require 'logger'
 # Version
 require 'adauth/version'
 # Classes
