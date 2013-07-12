@@ -1,10 +1,10 @@
-..................*...............
+....................*...............
 
 Pending:
   Adauth::AdObjects::User should allow you to reset the password
     # Insecure connection, unable to test change password
-    # ./spec/adauth_ad_object_user_spec.rb:44
+    # ./spec/adauth_ad_object_user_spec.rb:46
 
-Finished in 12.1 seconds
-34 examples, 0 failures, 1 pending
-Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 449 / 474 LOC (94.73%) covered.
+Finished in 12.52 seconds
+36 examples, 0 failures, 1 pending
+Coverage report generated for RSpec to /Users/arcath/Code/Gems/Adauth/coverage. 471 / 488 LOC (96.52%) covered.

@@ -39,6 +39,8 @@ describe Adauth::AdObjects::User do
         default_config
         Adauth.add_field(Adauth::AdObjects::User, :description, :description)
         administrator.description.should be_a String
+        Adauth.add_field(Adauth::AdObjects::User, :objectguid, :objectguid)
+        administrator.objectguid.should be_a String
     end
     
     it "should allow you to reset the password" do
