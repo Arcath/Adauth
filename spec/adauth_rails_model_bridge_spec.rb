@@ -21,7 +21,7 @@ class TestUserModel
 end
 
 describe Adauth::Rails::ModelBridge do
-    it "should extend", :no_ad => true do
+      it "should extend", :no_ad => true do
         TestUserModel.should respond_to :create_from_adauth
     end
     

@@ -71,10 +71,9 @@ module Adauth
         
         # Handle the output for the given field
         def handle_field(field)
-          if field.is_a? Symbol
-            return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "")
-          elsif field.is_a? Array
-            return @ldap_object.send(field.first).collect(&field.last)
+          case field
+            when Symbol then return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "") 
+            when Array then return  @ldap_object.send(field.first).collect(&field.last)
           end
         end
         

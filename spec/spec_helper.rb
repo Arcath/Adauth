@@ -28,22 +28,10 @@ def administrator
     Adauth::AdObjects::User.where('sAMAccountName', "administrator").first
 end
 
-def breakable_user
-  Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
-end
+#def breakable_user
+#  Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+#end
 
 def query_user
   Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "query_user")).first
-end
-
-def domain_admins
-    Adauth::AdObjects::Group.where('name', 'Domain Admins').first
-end
-
-def domain_controllers
-    Adauth::AdObjects::OU.where('name', 'Domain Controllers').first
-end
-
-def pdc
-    domain_controllers.members.first
 end

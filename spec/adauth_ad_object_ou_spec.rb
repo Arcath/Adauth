@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Adauth::AdObjects::OU do
+    let(:domain_controllers) do
+      Adauth::AdObjects::OU.where('name', 'Domain Controllers').first
+    end
+    
     it "should find Domain Controllers" do
         default_config
         domain_controllers.should be_a Adauth::AdObjects::OU

@@ -1,10 +1,13 @@
 require 'spec_helper'
 
 describe Adauth::AdObjects::User do
+    let(:user) do
+      Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+    end
+    
     it "should find administrator" do
         default_config
-        user = administrator
-        user.login.should eq "Administrator"
+        user.login.should eq test_data("domain", "breakable_user")
     end
     
     it "should authenticate a user" do
@@ -14,25 +17,25 @@ describe Adauth::AdObjects::User do
     
     it "should find groups" do
         default_config
-        user = administrator
         user.groups.should be_a Array
         user.groups.first.should be_a Adauth::AdObjects::Group
     end
     
-    it "should return true for member_of" do
+    it "should return boolean for member_of" do
         default_config
-        user = administrator
-        user.member_of?("Domain Admins").should be_true
+        user.member_of?("A Group").should be_false
     end
     
     it "should allow for modification" do
         default_config
         Adauth.add_field(Adauth::AdObjects::User, :phone, :homePhone)
-        number = administrator.phone
-        administrator.modify([[:replace, :homephone, "8765"]])
-        administrator.phone.should eq "8765"
-        administrator.modify([[:replace, :homephone, number]])
-        administrator.phone.should eq number
+        number = user.phone
+        user.modify([[:replace, :homephone, "8765"]])
+        new_user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+        new_user.phone.should eq "8765"
+        new_user.modify([[:replace, :homephone, number]])
+        new2_user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+        new2_user.phone.should eq number
     end
     
     it "should allow for additional methods" do

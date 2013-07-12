@@ -1,13 +1,17 @@
 require 'spec_helper'
 
 describe Adauth::AdObjects::Folder do
-    it "should find Domain Controllers" do
+    let(:root_folder) do
+      Adauth::AdObjects::Folder.root
+    end
+  
+    it "should find the root of the domain" do
         default_config
-        Adauth::AdObjects::Folder.root.should be_a Adauth::AdObjects::Folder
+        root_folder.should be_a Adauth::AdObjects::Folder
     end
     
     it "should have members" do
         default_config
-        Adauth::AdObjects::Folder.root.members.should be_a Array
+        root_folder.members.should be_a Array
     end
 end
