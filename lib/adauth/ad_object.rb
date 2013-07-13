@@ -72,7 +72,7 @@ module Adauth
         # Handle the output for the given field
         def handle_field(field)
           case field
-            when Symbol then return (@ldap_object.send(field).to_s).gsub(/\"|\[|\]/, "") 
+            when Symbol then return return_symbol_value(field)
             when Array then return  @ldap_object.send(field.first).collect(&field.last)
           end
         end
@@ -166,6 +166,14 @@ module Adauth
             user = Adauth::AdObjects::User.where('sAMAccountName', entity).first
             group = Adauth::AdObjects::Group.where('sAMAccountName', entity).first
             (user || group)
+        end
+        
+        def return_symbol_value(field)
+          value = @ldap_object.send(field)
+          case value
+            when String then return value
+            when Net::BER::BerIdentifiedArray then return value.first
+          end
         end
     end
 end
