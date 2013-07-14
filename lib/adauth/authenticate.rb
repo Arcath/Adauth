@@ -7,7 +7,7 @@ module Adauth
             Adauth.logger.info("authentication") { "Attempting to authenticate as #{username}" }
             if Adauth::AdObjects::User.authenticate(username, password)
                 user = Adauth::AdObjects::User.where('sAMAccountName', username).first
-                if allowed_group_login(user) && allowed_ou_login(user)
+                if allowed_to_login(user)
                     Adauth.logger.info("authentication") { "Authentication succesful" }
                     return user
                 else
@@ -21,17 +21,16 @@ module Adauth
         end
     end
     
-    # Makes sure the user meets the group requirements
-    def self.allowed_group_login(user)
-      return true if @config.allowed_groups.empty? && @config.denied_groups.empty?
-      return true if !((@config.allowed_groups & user.cn_groups_nested).empty?)
-      return false if !((@config.denied_groups & user.cn_groups_nested).empty?)
+    # Check if the user is allowed to login
+    def self.allowed_to_login(user)
+      (allowed_from_arrays(@config.allowed_groups, @config.denied_groups, user.cn_groups_nested) && allowed_from_arrays(@config.allowed_ous, @config.denied_ous, user.dn_ous))
     end
     
-    # Makes sure the user meets the ou requirements
-    def self.allowed_ou_login(user)
-        return true if @config.allowed_ous.empty? && @config.denied_ous.empty?
-        return true if !((@config.allowed_ous & user.dn_ous).empty?)
-        return false if !((@config.denied_ous & user.dn_ous).empty?)
+    private
+    
+    def self.allowed_from_arrays(allowed, denied, test)
+      return true if allowed.empty? && denied.empty?
+      return true if !((allowed & test).empty?)
+      return false if !((denied & test).empty?)
     end
 end
