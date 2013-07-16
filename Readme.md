@@ -71,3 +71,10 @@ You can interact with the logger through `Adauth.logger` and set a new one using
 ## Developing
 
 Before you can run the tests you will need to write a yml file with your domain settings in and place it at _spec/test_data.yml_, there is an example of this file in the spec folder.
+
+When you fork Adauth please:
+
+1. Create your feature branch (`git checkout -b my-new-feature`)
+2. Commit your changes (`git commit -am 'Add some feature'`)
+3. Push to the branch (`git push origin my-new-feature`)
+4. Create new Pull Request
