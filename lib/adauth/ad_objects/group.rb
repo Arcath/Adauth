@@ -20,15 +20,23 @@ module Adauth
                     :cn_members => [ :member,
                         Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ],
                     :memberof => :member
-                    #:cn_groups => [ :memberof,
-                    #    Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ]
                 }
             
             # Object Net::LDAP filter
             #
             # Used to restrict searches' to just this object
             ObjectFilter = Net::LDAP::Filter.eq("objectClass", "group")
-                
+            
+            # Create a new Group
+            def self.new_group(name, ou)
+              attributes = {
+                cn: name,
+                objectclass: ["top", "group"]
+              }
+              Adauth.connection.add(dn: "CN=#{name},#{ou.ldap_object.dn}", attributes: attributes )
+              return Adauth::AdObjects::Group.where('name', name).first
+            end
+            
             # Returns all the objects which are members of this group
             def members
                 Adauth.logger.info(self.class.inspect) { "Getting group members for #{self.name}" }

@@ -152,6 +152,11 @@ module Adauth
           return false
         end
         
+        # Delete the object
+        def delete
+          Adauth.connection.delete(dn: @ldap_object.dn)
+        end
+        
         private
         
         def convert_to_objects(array)
