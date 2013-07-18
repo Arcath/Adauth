@@ -15,6 +15,8 @@ module Adauth
     #
     # Provides all the common functions for Active Directory.
     class AdObject
+        include Expects
+      
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
             Adauth.logger.info(self.class.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
@@ -54,6 +56,7 @@ module Adauth
         
         # Creates a new instance of the object and sets @ldap_object to the passed Net::LDAP entity        
         def initialize(ldap_object)
+            expects ldap_object, Net::LDAP::Entry
             @ldap_object = ldap_object
         end
         

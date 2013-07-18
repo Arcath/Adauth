@@ -28,12 +28,13 @@ module Adauth
             ObjectFilter = Net::LDAP::Filter.eq("objectClass", "group")
             
             # Create a new Group
-            def self.new_group(name, ou)
+            def self.new_group(name, parent)
+              expects parent, [Adauth::AdObjects::OU, Adauth::AdObjects::Folder]
               attributes = {
                 cn: name,
                 objectclass: ["top", "group"]
               }
-              Adauth.connection.add(dn: "CN=#{name},#{ou.ldap_object.dn}", attributes: attributes )
+              Adauth.connection.add(dn: "CN=#{name},#{parent.ldap_object.dn}", attributes: attributes )
               return Adauth::AdObjects::Group.where('name', name).first
             end
             

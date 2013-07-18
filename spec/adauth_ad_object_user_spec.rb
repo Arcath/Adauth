@@ -5,6 +5,10 @@ describe Adauth::AdObjects::User do
       Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
     end
     
+    let(:test_ou) do
+      Adauth::AdObjects::OU.where('name', test_data("domain", "testable_ou")).first
+    end
+    
     it "should find administrator" do
         default_config
         user.login.should eq test_data("domain", "breakable_user")
@@ -59,5 +63,13 @@ describe Adauth::AdObjects::User do
       rescue RuntimeError
         pending("Insecure connection, unable to test change password")
       end
+    end
+    
+    it "should be able to add a user to a group" do
+      default_config
+      new_group = Adauth::AdObjects::Group.new_group("Adauth Test Group", test_ou)
+      user.add_to_group new_group
+      rq_user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+      rq_user.member_of("Adauth Test Group").should be_true
     end
 end

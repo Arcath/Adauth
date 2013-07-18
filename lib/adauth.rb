@@ -1,4 +1,5 @@
 # Requires
+require 'expects'
 require 'logger'
 require 'net/ldap'
 require 'timeout'

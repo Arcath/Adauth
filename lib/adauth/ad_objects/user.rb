@@ -48,6 +48,12 @@ module Adauth
               modify([[:replace, :unicodePwd, password]])
             end
             
+            # Add the user to the supplied group
+            def add_to_group(group)
+              expects group, Adauth::AdObjects::Group
+              group.modify([:add, :member, @ldap_object.dn])
+            end
+            
             private
             
             def microsoft_encode_password(password)
