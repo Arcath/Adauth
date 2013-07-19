@@ -70,6 +70,7 @@ describe Adauth::AdObjects::User do
       new_group = Adauth::AdObjects::Group.new_group("Adauth Test Group", test_ou)
       user.add_to_group new_group
       rq_user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
-      rq_user.member_of("Adauth Test Group").should be_true
+      rq_user.member_of?("Adauth Test Group").should be_true
+      new_group.delete
     end
 end
