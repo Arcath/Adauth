@@ -73,4 +73,16 @@ describe Adauth::AdObjects::User do
       rq_user.member_of?("Adauth Test Group").should be_true
       new_group.delete
     end
+    
+    it "should be able to remove a user from a group" do
+      default_config
+      new_group = Adauth::AdObjects::Group.new_group("Adauth Test Group", test_ou)
+      user.add_to_group new_group
+      rq_user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+      rq_user.member_of?("Adauth Test Group").should be_true
+      rq_user.remove_from_group new_group
+      rq_user = Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
+      rq_user.member_of?("Adauth Test Group").should be_false
+      new_group.delete
+    end
 end
