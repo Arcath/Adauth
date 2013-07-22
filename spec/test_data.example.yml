@@ -9,3 +9,4 @@ domain:
   query_password: Password
   breakable_user: User.Name
   breakable_password: Password
+  testable_ou: Your OU

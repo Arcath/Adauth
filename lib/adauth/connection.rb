@@ -3,7 +3,10 @@ module Adauth
     #
     # Handles errors and configures the connection.
     class Connection
+        include Expects
+      
         def initialize(config)
+            expects config, Hash
             @config = config
         end
         
