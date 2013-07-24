@@ -23,15 +23,3 @@ def test_data(set, key)
     @yaml ||= YAML::load(File.open('spec/test_data.yml'))
     @yaml[set][key]
 end
-
-def administrator
-    Adauth::AdObjects::User.where('sAMAccountName', "administrator").first
-end
-
-#def breakable_user
-#  Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "breakable_user")).first
-#end
-
-def query_user
-  Adauth::AdObjects::User.where('sAMAccountName', test_data("domain", "query_user")).first
-end

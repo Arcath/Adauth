@@ -45,9 +45,9 @@ describe Adauth::AdObjects::User do
     it "should allow for additional methods" do
         default_config
         Adauth.add_field(Adauth::AdObjects::User, :description, :description)
-        administrator.description.should be_a String
+        user.description.should be_a String
         Adauth.add_field(Adauth::AdObjects::User, :objectguid, :objectguid)
-        administrator.objectguid.should be_a String
+        user.objectguid.should be_a String
     end
     
     it "should allow you to reset the password" do

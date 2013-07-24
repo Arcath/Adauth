@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
     s.description = "A full featured library for working with Microsofts Active Directory in Ruby."
     s.license = 'MIT'
     
+    s.add_development_dependency "ladle"
     s.add_development_dependency "rake"
     s.add_development_dependency "rspec"
     s.add_development_dependency "simplecov"
