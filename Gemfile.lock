@@ -3,7 +3,7 @@ PATH
   specs:
     adauth (2.0.1)
       expects (~> 0.0.2)
-      missingly (~> 0.0.4)
+      missingly (~> 0.0.5)
       net-ldap
 
 GEM
@@ -13,7 +13,7 @@ GEM
     expects (0.0.2)
     ladle (0.2.0)
       open4 (~> 1.0.0)
-    missingly (0.0.4)
+    missingly (0.0.5)
     multi_json (1.7.7)
     net-ldap (0.3.1)
     open4 (1.0.1)
