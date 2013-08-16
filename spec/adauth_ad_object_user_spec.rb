@@ -85,4 +85,9 @@ describe Adauth::AdObjects::User do
       rq_user.member_of?("Adauth Test Group").should be_false
       new_group.delete
     end
+    
+    it "should use missingly methods" do
+      default_config
+      Adauth::AdObjects::User.find_by_foo("Foo")
+    end
 end

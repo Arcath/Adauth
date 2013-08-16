@@ -7,6 +7,9 @@ module Adauth
     def self.add_field(object, adauth_method, ldap_method)
         Adauth.logger.info(object.inspect) { "Adding field \"#{ldap_method}\"" }
         object::Fields[adauth_method] = ldap_method
+        object.handle_missingly [adauth_method] do |field|
+          return handle_field(object::Fields[field])
+        end
     end
     
     # Active Directory Interface Object
@@ -16,7 +19,21 @@ module Adauth
     # Provides all the common functions for Active Directory.
     class AdObject
         include Expects
-      
+        include Missingly::Matchers
+        
+        handle_missingly /^find_by_(\w+)$/, class_method: true do |matches, *args, &block|
+          raise args.inspect
+          raise matches.inspect
+        end
+        
+        def self.reverse_field(search)
+          hash = {}
+          self::Fields.each do |k, v|
+            hash[v] = k
+          end
+          return hash[search]
+        end
+        
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
             Adauth.logger.info(self.class.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
@@ -63,13 +80,6 @@ module Adauth
         # Allows direct access to @ldap_object 
         def ldap_object
             @ldap_object
-        end
-        
-        # Over ride method missing to see if the object has a field by that name
-        def method_missing(method, *args)
-          field = self.class::Fields[method]
-          return handle_field(field) if field
-          return super
         end
         
         # Handle the output for the given field

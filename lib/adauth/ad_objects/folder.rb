@@ -24,6 +24,10 @@ module Adauth
             # Used to restrict searches to just this object
             ObjectFilter = Net::LDAP::Filter.eq("objectClass", "top")
             
+            handle_missingly Fields.keys do |field|
+              return handle_field(Fields[field])
+            end
+            
             # Returns the Domain Object which is useful for building domain maps.
             def self.root
               self.new(Adauth.connection.search(:filter => Net::LDAP::Filter.eq("objectClass", "Domain")).first)
