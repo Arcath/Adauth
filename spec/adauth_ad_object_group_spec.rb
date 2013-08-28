@@ -17,7 +17,7 @@ describe Adauth::AdObjects::Group do
     it "should have a members list" do
         default_config
         domain_admins.members.should be_a Array
-        domain_admins.members.first.name.should be_a String
+        domain_admins.members.last.name.should be_a String
     end
     
     it "should be a member of" do

@@ -59,7 +59,8 @@ module Adauth
             :encryption => @config.encryption,
             :allow_fallback => @config.allow_fallback,
             :username => user, 
-            :password => password 
+            :password => password,
+            :anonymous_bind => @config.anonymous_bind 
         }
     end
     
