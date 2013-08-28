@@ -17,6 +17,7 @@ describe Adauth::AdObjects::User do
     it "should authenticate a user" do
         default_config
         Adauth::AdObjects::User.authenticate(test_data("domain", "query_user"), test_data("domain", "query_password")).should be_true
+        lambda { Adauth::AdObjects::User.authenticate(test_data("domain", "query_user"), "does not work") }.should raise_exception
     end
     
     it "should find groups" do

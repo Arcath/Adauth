@@ -22,7 +22,9 @@ module Adauth
             if @config[:encryption]
                conn.encryption @config[:encryption]
             end
-
+            
+            raise "Anonymous Bind is disabled" if @config[:password] == "" && !(@config[:anonymous_bind])
+            
             conn.auth "#{@config[:username]}@#{@config[:domain]}", @config[:password]
             
             begin
