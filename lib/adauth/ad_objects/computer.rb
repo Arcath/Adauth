@@ -23,10 +23,6 @@ module Adauth
             #
             # Used to restrict searches to just this object
             ObjectFilter = Net::LDAP::Filter.eq("objectClass", "computer")
-            
-            handle_missingly Fields.keys do |field|
-              return handle_field(Fields[field])
-            end
         end
     end
 end

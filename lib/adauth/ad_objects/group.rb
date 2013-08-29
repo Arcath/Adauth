@@ -27,10 +27,6 @@ module Adauth
             # Used to restrict searches' to just this object
             ObjectFilter = Net::LDAP::Filter.eq("objectClass", "group")
             
-            handle_missingly Fields.keys do |field|
-              return handle_field(Fields[field])
-            end
-            
             # Create a new Group
             def self.new_group(name, parent)
               expects parent, [Adauth::AdObjects::OU, Adauth::AdObjects::Folder]

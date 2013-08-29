@@ -7,9 +7,6 @@ module Adauth
     def self.add_field(object, adauth_method, ldap_method)
         Adauth.logger.info(object.inspect) { "Adding field \"#{ldap_method}\"" }
         object::Fields[adauth_method] = ldap_method
-        object.handle_missingly [adauth_method] do |field|
-          return handle_field(object::Fields[field])
-        end
     end
     
     # Active Directory Interface Object
@@ -19,11 +16,11 @@ module Adauth
     # Provides all the common functions for Active Directory.
     class AdObject
         include Expects
-        include Missingly::Matchers
         
-        handle_missingly /^find_by_(\w+)$/, class_method: true do |matches, *args, &block|
-          raise args.inspect
-          raise matches.inspect
+        def method_missing(method, *args)
+          field = self.class::Fields[method]
+          return handle_field(field) if field
+          return super
         end
         
         def self.reverse_field(search)

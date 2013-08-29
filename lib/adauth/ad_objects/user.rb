@@ -28,10 +28,6 @@ module Adauth
             #
             # Used to restrict searches to just this object      
             ObjectFilter = Net::LDAP::Filter.eq('objectClass', 'user')
-            
-            handle_missingly Fields.keys do |field|
-              return handle_field(Fields[field])
-            end
           
             # Returns a connection to AD within the users context, used to check a user credentails
             #
