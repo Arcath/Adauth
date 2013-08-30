@@ -9,7 +9,10 @@ rvm:
 env:
  - "rake=0.9"
 script: "bundle exec rspec -t no_ad"
-before_script: "mkdir log"
+before_install:
+ - travis/before_install.sh
+before_script:
+ - travis/before_script.sh
 notifications:
   email: false
 matrix:
