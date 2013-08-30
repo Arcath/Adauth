@@ -17,6 +17,14 @@ module Adauth
     class AdObject
         include Expects
         
+        def self.method_missing(method, *args)
+          return super unless method =~ /^find_by_/
+          method_field = method.to_s.split("_").last
+          field = self::Fields[method_field.to_sym]
+          return super unless field
+          self.where(field, args.first)
+        end
+        
         def method_missing(method, *args)
           field = self.class::Fields[method]
           return handle_field(field) if field
@@ -34,7 +42,7 @@ module Adauth
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
             Adauth.logger.info(self.class.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
-            self.filter(self::ObjectFilter)
+            Adauth::SearchResults.new(self.filter(self::ObjectFilter))
         end
         
         # Returns all the objects which match the supplied query
@@ -43,7 +51,7 @@ module Adauth
         def self.where(field, value)
             search_filter = Net::LDAP::Filter.eq(field, value)
             Adauth.logger.info(self.class.inspect) { "Searching for all \"#{self::ObjectFilter}\" where #{field} = #{value}" }
-            filter(add_object_filter(search_filter))
+            Adauth::SearchResults.new(filter(add_object_filter(search_filter)))
         end
         
         # Returns all LDAP objects that match the given filter

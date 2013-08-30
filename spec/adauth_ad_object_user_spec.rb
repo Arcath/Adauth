@@ -87,8 +87,9 @@ describe Adauth::AdObjects::User do
       new_group.delete
     end
     
-    it "should use missingly methods" do
+    it "should have find_by methods (and not break method_missing)" do
       default_config
-      Adauth::AdObjects::User.find_by_foo("Foo")
+      lambda { Adauth::AdObjects::User.fooooooooo }.should raise_exception
+      Adauth::AdObjects::User.find_by_login(test_data("domain", "breakable_user")).should be_a Adauth::SearchResults
     end
 end
