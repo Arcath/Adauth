@@ -16,7 +16,7 @@ EOF
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f travis/ldif/phonetic-attribute-options.ldif
 
 base="dc=`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //' | sed -e 's/^\.//; s/\./,dc=/g'`"
-domain="dc=`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //'"
+domain="`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //'`"
 
 cat <<EOF > spec/test_data.yml
 domain:
