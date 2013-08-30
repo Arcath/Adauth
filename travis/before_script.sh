@@ -2,8 +2,8 @@
 
 mkdir log
 
-password = "secret"
-crypted_password = `slappasswd -s $password`
+password="secret"
+crypted_password=`slappasswd -s $password`
 cat <<EOF | sudo ldapmodify -Y EXTERNAL -H ldapi:///
 version: 1
 dn: olcDatabase={1}hdb,cn=config
@@ -29,3 +29,5 @@ domain:
   breakable_password: bar
   testable_ou: Foo
 EOF
+
+cat spec/test_data.yml
