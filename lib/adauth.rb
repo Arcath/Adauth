@@ -1,7 +1,6 @@
 # Requires
 require 'expects'
 require 'logger'
-require 'missingly'
 require 'net/ldap'
 require 'timeout'
 # Version
