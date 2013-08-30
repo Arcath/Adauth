@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    adauth (2.0.1)
+    adauth (2.0.2)
       expects (~> 0.0.2)
       net-ldap
 
