@@ -26,7 +26,7 @@ domain:
   base: ${base}
   server: 127.0.0.1
   query_user: admin
-  query_user_base: cn=admin,${base}
+  query_user_dn: cn=admin,${base}
   query_password: ${password}
   breakable_user: foo
   breakable_password: bar

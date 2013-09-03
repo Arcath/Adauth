@@ -46,11 +46,11 @@ module Adauth
     # Connects to ActiveDirectory using the query user details
     def self.connect
         @logger.info('connection') { "Connecting to AD as \"#{@config.query_user}\"" }
-        @connection = Adauth::Connection.new(connection_hash(@config.query_user, @config.query_password)).bind
+        @connection = Adauth::Connection.new(connection_hash(@config.query_user, @config.query_password, @config.query_user_dn)).bind
     end
     
     # Generates a hash for the connection class, takes a username and password
-    def self.connection_hash(user, password)
+    def self.connection_hash(user, password, bind_dn = false)
         { 
             :domain => @config.domain, 
             :server => @config.server, 
@@ -60,6 +60,7 @@ module Adauth
             :allow_fallback => @config.allow_fallback,
             :username => user, 
             :password => password,
+            :bind_dn => bind_dn,
             :anonymous_bind => @config.anonymous_bind 
         }
     end

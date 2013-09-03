@@ -5,7 +5,7 @@ module Adauth
     class Config
         attr_accessor   :domain, :port, :base, :server, :encryption, :query_user, :query_password, :allow_fallback,
                         :allowed_groups, :denied_groups, :allowed_ous, :denied_ous, :contains_nested_groups,
-                        :anonymous_bind
+                        :anonymous_bind, :query_user_dn
         
         def initialize
             @port = 389

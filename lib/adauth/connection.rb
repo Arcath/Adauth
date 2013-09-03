@@ -25,6 +25,8 @@ module Adauth
             
             raise "Anonymous Bind is disabled" if @config[:password] == "" && !(@config[:anonymous_bind])
             
+            @config[:bind_dn]
+            
             conn.auth "#{@config[:username]}@#{@config[:domain]}", @config[:password]
             
             begin
