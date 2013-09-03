@@ -35,7 +35,7 @@ sn: Tests
 EOF
 
 # Add the new user
-sudo ldapadd -D "cn=admin,${base}" -W -w $password -x -f travis/ldif/query_user.ldif
+sudo ldapadd -D "cn=admin,${base}" -w $password -x -f travis/ldif/query_user.ldif
 
 # Generate the tests config file
 cat <<EOF > spec/test_data.yml
