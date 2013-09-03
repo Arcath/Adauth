@@ -4,6 +4,7 @@ mkdir log
 
 password="secret"
 crypted_password=`slappasswd -s $password`
+echo "crtpyed password: #{crypted_password}"
 cat <<EOF | sudo ldapmodify -Y EXTERNAL -H ldapi:///
 version: 1
 dn: olcDatabase={1}hdb,cn=config
@@ -25,6 +26,7 @@ domain:
   base: ${base}
   server: 127.0.0.1
   query_user: admin
+  query_user_base: cn=admin,#{base}
   query_password: ${password}
   breakable_user: foo
   breakable_password: bar
