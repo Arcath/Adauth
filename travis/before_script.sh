@@ -19,13 +19,22 @@ sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f travis/ldif/phonetic-attribute-optio
 base="dc=`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //' | sed -e 's/^\.//; s/\./,dc=/g'`"
 domain="`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //'`"
 
+cat <<EOF | sudo ldapmodify -Y EXTERNAL -H ldapi:///
+version: 1
+dn: cn=adauth,${base}
+changetype: add
+objectClass: user
+objectClass: top
+userPassword: ${password}
+EOF
+
 cat <<EOF > spec/test_data.yml
 domain:
   domain: ${domain}
   port: 389
   base: ${base}
   server: 127.0.0.1
-  query_user: admin
+  query_user: adauth
   query_user_dn: cn=admin,${base}
   query_password: ${password}
   breakable_user: foo
