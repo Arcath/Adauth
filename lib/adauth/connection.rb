@@ -25,9 +25,9 @@ module Adauth
             
             raise "Anonymous Bind is disabled" if @config[:password] == "" && !(@config[:anonymous_bind])
             
-            @config[:bind_dn]
+            auth_name = @config[:bind_dn] ? @config[:bind_dn] : "#{@config[:username]}@#{@config[:domain]}"
             
-            conn.auth "#{@config[:username]}@#{@config[:domain]}", @config[:password]
+            conn.auth auth_name, @config[:password]
             
             begin
                 Timeout::timeout(10){
