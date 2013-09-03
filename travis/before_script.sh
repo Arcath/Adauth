@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# Create the Logs directory
 mkdir log
 
+# Generate admin password
 password="secret"
 crypted_password=`slappasswd -s $password`
 echo "crtpyed password: ${crypted_password}"
+
+# Apply the administrator password
 cat <<EOF | sudo ldapmodify -Y EXTERNAL -H ldapi:///
 version: 1
 dn: olcDatabase={1}hdb,cn=config
@@ -16,18 +20,24 @@ EOF
 
 sudo ldapmodify -Y EXTERNAL -H ldapi:/// -f travis/ldif/phonetic-attribute-options.ldif
 
+# Calculate base and domain name
 base="dc=`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //' | sed -e 's/^\.//; s/\./,dc=/g'`"
 domain="`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 //'`"
 
-cat <<EOF | sudo ldapmodify -Y EXTERNAL -H ldapi:///
-version: 1
+# Create the query user ldif file
+cat <<EOF > travis/ldif/query_user.ldif
 dn: cn=adauth,${base}
-changetype: add
+cn: Adauth
 objectClass: user
 objectClass: top
-userPassword: ${password}
+userPassword: ${crypted_password}
+sn: Tests
 EOF
 
+# Add the new user
+sudo ldapadd -D "cn=admin,${base}" -W -x -f travis/ldif/query_user.ldif
+
+# Generate the tests config file
 cat <<EOF > spec/test_data.yml
 domain:
   domain: ${domain}
@@ -42,4 +52,5 @@ domain:
   testable_ou: Foo
 EOF
 
+# Output the config file for debugging purposes
 cat spec/test_data.yml
