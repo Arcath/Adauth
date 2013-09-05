@@ -21,7 +21,7 @@ module Adauth
                     :email => :mail,
                     :name => :name,
                     :cn_groups => [ :memberof,
-                        Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1')} ]
+                        Proc.new {|g| g.sub(/.*?CN=(.*?),.*/, '\1').to_s} ]
                     }
               
             # Object Net::LDAP filter
