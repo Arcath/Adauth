@@ -28,7 +28,7 @@ domain="`echo get slapd/domain | sudo debconf-communicate slapd | sed -e 's/^0 /
 cat <<EOF > travis/ldif/query_user.ldif
 dn: cn=adauth,${base}
 cn: Adauth
-objectClass: user
+objectClass: account
 objectClass: top
 userPassword: ${crypted_password}
 sn: Tests
