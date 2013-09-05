@@ -10,6 +10,7 @@ require 'adauth/ad_object'
 require 'adauth/authenticate'
 require 'adauth/config'
 require 'adauth/connection'
+require 'adauth/search_results'
 # AdObjects
 require 'adauth/ad_objects/computer'
 require 'adauth/ad_objects/folder'

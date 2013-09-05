@@ -16,11 +16,33 @@ module Adauth
     # Provides all the common functions for Active Directory.
     class AdObject
         include Expects
-      
+        
+        def self.method_missing(method, *args)
+          return super unless method =~ /^find_by_/
+          method_field = method.to_s.split("_").last
+          field = self::Fields[method_field.to_sym]
+          return super unless field
+          self.where(field, args.first)
+        end
+        
+        def method_missing(method, *args)
+          field = self.class::Fields[method]
+          return handle_field(field) if field
+          return super
+        end
+        
+        def self.reverse_field(search)
+          hash = {}
+          self::Fields.each do |k, v|
+            hash[v] = k
+          end
+          return hash[search]
+        end
+        
         # Returns all objects which have the ObjectClass of the inherited class
         def self.all
             Adauth.logger.info(self.class.inspect) { "Searching for all objects matching filter \"#{self::ObjectFilter}\"" }
-            self.filter(self::ObjectFilter)
+            Adauth::SearchResults.new(self.filter(self::ObjectFilter))
         end
         
         # Returns all the objects which match the supplied query
@@ -29,7 +51,7 @@ module Adauth
         def self.where(field, value)
             search_filter = Net::LDAP::Filter.eq(field, value)
             Adauth.logger.info(self.class.inspect) { "Searching for all \"#{self::ObjectFilter}\" where #{field} = #{value}" }
-            filter(add_object_filter(search_filter))
+            Adauth::SearchResults.new(filter(add_object_filter(search_filter)))
         end
         
         # Returns all LDAP objects that match the given filter
@@ -63,13 +85,6 @@ module Adauth
         # Allows direct access to @ldap_object 
         def ldap_object
             @ldap_object
-        end
-        
-        # Over ride method missing to see if the object has a field by that name
-        def method_missing(method, *args)
-          field = self.class::Fields[method]
-          return handle_field(field) if field
-          return super
         end
         
         # Handle the output for the given field
