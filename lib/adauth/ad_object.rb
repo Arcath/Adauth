@@ -108,9 +108,11 @@ module Adauth
           @cn_groups_nested = cn_groups
           cn_groups.each do |group|
             ado = Adauth::AdObjects::Group.where('name', group).first
-            groups = convert_to_objects ado.cn_groups
-            groups.each do |g|
-              @cn_groups_nested.push g if !(@cn_groups_nested.include?(g))
+            if ado
+              groups = convert_to_objects ado.cn_groups
+              groups.each do |g|
+                @cn_groups_nested.push g if !(@cn_groups_nested.include?(g))
+              end
             end
           end
           return @cn_groups_nested
