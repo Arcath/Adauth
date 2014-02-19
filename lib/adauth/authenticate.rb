@@ -23,7 +23,7 @@ module Adauth
     
     # Check if the user is allowed to login
     def self.allowed_to_login(user)
-      (allowed_from_arrays(@config.allowed_groups, @config.denied_groups, user.cn_groups_nested) && allowed_from_arrays(@config.allowed_ous, @config.denied_ous, user.dn_ous))
+      (((@config.allowed_groups.empty? && @config.denied_groups.empty?) || allowed_from_arrays(@config.allowed_groups, @config.denied_groups, user.cn_groups_nested)) && ((@config.allowed_ous.empty? && @config.denied_ous.empty?) || allowed_from_arrays(@config.allowed_ous, @config.denied_ous, user.dn_ous)))
     end
     
     private
