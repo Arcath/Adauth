@@ -48,7 +48,11 @@ module Adauth
             end
             
             def cn_groups
-              memberof.split(/.*?CN=(.*?),.*/)
+              if memberof.nil?
+                []
+              else
+                memberof.split(/.*?CN=(.*?),.*/)
+              end
             end
         end
     end
