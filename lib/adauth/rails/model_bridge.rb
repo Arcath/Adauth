@@ -50,10 +50,11 @@ module Adauth
 
                 # Used to create the RailsModel if it doesn't exist and update it if it does
                 def return_and_create_from_adauth(adauth_model)
-                    find_method = "find_by_#{self::AdauthSearchField.last}".to_sym
-                    rails_model = (self.send(find_method, adauth_model.send(self::AdauthSearchField.first)) || create_from_adauth(adauth_model))
+                    search_field = self::AdauthSearchField.first
+                    search_value = adauth_model.send(self::AdauthSearchField.first)
+                    rails_model = self.send(:where, { search_field => search_value }).first_or_initialize
                     rails_model.update_from_adauth(adauth_model)
-                    return rails_model
+                    rails_model
                 end
             end
         end
