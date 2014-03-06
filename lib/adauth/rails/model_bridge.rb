@@ -20,7 +20,7 @@ module Adauth
         #
         # AdauthSearchField = [:login, :name]
         #
-        # This will cause RailsModel.find_by_name(AdauthObject.login)
+        # This will cause RailsModel.where(:name => AdauthObject.login).first_or_initialize
         #
         # The Order is [adauth_field, rails_field]
         module ModelBridge
@@ -50,9 +50,11 @@ module Adauth
 
                 # Used to create the RailsModel if it doesn't exist and update it if it does
                 def return_and_create_from_adauth(adauth_model)
-                    search_field = self::AdauthSearchField.first
-                    search_value = adauth_model.send(self::AdauthSearchField.first)
-                    rails_model = self.send(:where, { search_field => search_value }).first_or_initialize
+                    adauth_field = self::AdauthSearchField.first
+                    adauth_search_value = adauth_model.send(adauth_field)
+                    rails_search_field = self::AdauthSearchField.second
+                    # Model#where({}).first_or_initialize is also compatible with Mongoid (3.1.0+)
+                    rails_model = self.send(:where, { rails_search_field => adauth_search_value }).first_or_initialize
                     rails_model.update_from_adauth(adauth_model)
                     rails_model
                 end
