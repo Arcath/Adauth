@@ -11,6 +11,11 @@ describe Adauth, "#authenticate" do
         Adauth.authenticate(test_data("domain", "query_user"), "foo").should be_false
     end
 
+    it "should return false for a user that does not exist" do
+      default_config
+      Adauth.authenticate("foo", "bar").should be_false
+    end
+
     it "should allow the user if allowed groups are used" do
       Adauth.configure do |c|
           c.domain = test_data("domain", "domain")
