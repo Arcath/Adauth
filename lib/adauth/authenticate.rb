@@ -20,14 +20,18 @@ module Adauth
             return false
         end
     end
-    
+
     # Check if the user is allowed to login
     def self.allowed_to_login(user)
-      (((@config.allowed_groups.empty? && @config.denied_groups.empty?) || allowed_from_arrays(@config.allowed_groups, @config.denied_groups, user.cn_groups_nested)) && ((@config.allowed_ous.empty? && @config.denied_ous.empty?) || allowed_from_arrays(@config.allowed_ous, @config.denied_ous, user.dn_ous)))
+      if (@config.allowed_groups.empty? && @config.allowed_ous.empty?) && (@config.denied_groups.empty? && @config.denied_ous.empty?)
+        return true
+      else
+        return (allowed_from_arrays(@config.allowed_groups, @config.denied_groups, user.cn_groups_nested) && allowed_from_arrays(@config.allowed_ous, @config.denied_ous, user.dn_ous))
+      end
     end
-    
+
     private
-    
+
     def self.allowed_from_arrays(allowed, denied, test)
       return true if allowed.empty? && denied.empty?
       return true if !((allowed & test).empty?)
