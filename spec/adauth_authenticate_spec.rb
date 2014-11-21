@@ -80,4 +80,26 @@ describe Adauth, "#authenticate" do
         end
         Adauth.authenticate(test_data("domain", "query_user"), test_data("domain", "query_password")).should be_false
     end
+
+    it "should allow for simple authentication" do
+      Adauth.configure do |c|
+          c.domain = test_data("domain", "domain")
+          c.port = test_data("domain", "port")
+          c.base = test_data("domain", "base")
+          c.server = test_data("domain", "server")
+      end
+
+      Adauth.simple_authenticate(test_data("domain", "query_user"), test_data("domain", "query_password")).should be_true
+    end
+
+    it "should allow for simple authentication to return false" do
+      Adauth.configure do |c|
+          c.domain = test_data("domain", "domain")
+          c.port = test_data("domain", "port")
+          c.base = test_data("domain", "base")
+          c.server = test_data("domain", "server")
+      end
+
+      Adauth.simple_authenticate(test_data("domain", "query_user"), 'not the password').should be_false
+    end
 end
