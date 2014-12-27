@@ -17,6 +17,8 @@ def default_config
         c.query_user = test_data("domain", "query_user")
         c.query_password = test_data("domain", "query_password")
     end
+
+    Adauth.logger = Logger.new('/dev/null')
 end
 
 def test_data(set, key)

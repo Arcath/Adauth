@@ -5,7 +5,7 @@ describe Adauth, :no_ad => true do
         Adauth.configure do |c|
         end
     end
-  
+
     it "should be able to have a new logged defined" do
       Adauth.logger= Logger.new('log/newlogger.log', 'daily')
     end
