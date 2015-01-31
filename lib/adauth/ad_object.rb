@@ -1,3 +1,5 @@
+require "active_support/core_ext/object/try"
+
 module Adauth
     # Container for Objects which inherit from Adauth::AdObject
     module AdObjects
