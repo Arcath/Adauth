@@ -34,7 +34,11 @@ module Adauth
                 self.class::AdauthMappings.each do |k, v|
                     setter = "#{k.to_s}=".to_sym
                     value = v.is_a?(Array) ? v.join(", ") : v
-                    self.send(setter, adauth_model.send(value))
+
+                    # ensure the attribute exists in the collected data and only assign if it does
+                    if adauth_model.respond_to?(value)
+                      self.send(setter, adauth_model.send(value))
+                    end
                 end
                 self.save
                 self
